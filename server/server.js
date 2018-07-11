@@ -7,6 +7,7 @@ const {Note} = require('./models/note');
 const {User} = require('./models/user');
 
 const app = express();
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
@@ -39,7 +40,7 @@ app.get('/notes/:id', (req, res) => {
 
   Note.findById(id).then(note => {
     if(!note){
-      return res.status(404).send();res.send({note})
+      return res.status(404).send();
     }
     res.send({note})
   }).catch((e) => {
@@ -47,8 +48,25 @@ app.get('/notes/:id', (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log('Started on port 3000');
+app.delete('/notes/:id', (req, res) => {
+  const id = req.params.id;
+
+  if(!ObjectID.isValid(id)) {
+    return res.status(404).send();
+  }
+
+  Note.findByIdAndRemove(id).then(note => {
+    if(!note) {
+      return res.status(404).send();
+    }
+    res.send(note)
+  }).catch((e) => {
+    res.status(400).send();
+  });
+});
+
+app.listen(port, () => {
+  console.log(`Started at port ${port}`);
 })
 
 module.exports = {app};
