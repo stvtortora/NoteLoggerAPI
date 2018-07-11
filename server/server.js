@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const {ObjectId} = require('mongodb');
+const {ObjectID} = require('mongodb');
 
 const {mongoose} = require('./db/mongoose');
 const {Note} = require('./models/note');
@@ -33,7 +33,7 @@ app.get('/notes', (req, res) => {
 app.get('/notes/:id', (req, res) => {
   const id = req.params.id;
 
-  if(!ObjectId.isValid(id)) {
+  if(!ObjectID.isValid(id)) {
     return res.status(404).send();
   }
 

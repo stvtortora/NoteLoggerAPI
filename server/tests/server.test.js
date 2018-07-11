@@ -1,15 +1,15 @@
 const expect = require('expect');
 const request = require('supertest');
-const {ObjectId} = require('mongodb');
+const {ObjectID} = require('mongodb');
 
 const {app} = require('./../server');
 const {Note} = require('./../models/note');
 
 const notes = [{
-  _id: new ObjectId(),
+  _id: new ObjectID(),
   text: 'test note 1'
 }, {
-  _id: new ObjectId(),
+  _id: new ObjectID(),
   text: 'test note 2'
 }];
 
@@ -85,7 +85,7 @@ describe('GET /notes/:id', () => {
   });
 
   it('should return 404 if note is not found', (done) => {
-    const outSideId = new ObjectId().toHexString();
+    const outSideId = new ObjectID().toHexString();
     request(app)
     .get(`/notes/${outSideId}`)
     .expect(404)
