@@ -59,7 +59,7 @@ app.delete('/notes/:id', (req, res) => {
     if(!note) {
       return res.status(404).send();
     }
-    res.send(note)
+    res.send({note})
   }).catch((e) => {
     res.status(400).send();
   });
