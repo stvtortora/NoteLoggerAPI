@@ -137,3 +137,19 @@ describe('DELETE /notes/:id', () => {
     .end(done)
   });
 });
+
+describe('PATCH /notes/:id', () => {
+  it('should update the note', done => {
+    const id = notes[1]._id.toHexString();
+    const text = 'new text';
+
+    request(app)
+    .patch(`/notes/${id}`)
+    .send({text})
+    .expect(200)
+    .expect(res => {
+      expect(res.body.note.text).toBe(text)
+    })
+    .end(done);
+  });
+})
