@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
 const {ObjectID} = require('mongodb');
@@ -64,6 +65,25 @@ app.delete('/notes/:id', (req, res) => {
     res.status(400).send();
   });
 });
+
+app.patch('/notes/:id', (req, res) => {
+  const id = req.params.id;
+  const body = _.pick(req.body, ['text']);
+
+  if(!ObjectID.isValid(id)) {
+    return res.status(404).send();
+  }
+
+  Note.findByIdAndUpdate(id, {$set: body}, {new: true}).then(note => {
+    if(!note) {
+      return res.status(404).send();
+    }
+
+    res.send({note});
+  }).catch((e) => {
+    res.status(400).send();
+  })
+})
 
 app.listen(port, () => {
   console.log(`Started at port ${port}`);
