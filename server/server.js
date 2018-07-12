@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const {ObjectID} = require('mongodb');
 
-const {mongoose} = require('./db/mongoose');
+var {mongoose} = require('./db/mongoose');
 const {Note} = require('./models/note');
 const {User} = require('./models/user');
 
