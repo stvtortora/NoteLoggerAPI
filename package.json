@@ -2,6 +2,7 @@
   "name": "frame-react-challenge",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://www.steventortora.com/SubredditBrowser/",
   "dependencies": {
     "jquery": "^3.3.1",
     "react": "^16.4.1",
@@ -9,6 +10,8 @@
     "react-scripts": "1.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
@@ -16,6 +19,7 @@
   },
   "devDependencies": {
     "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1"
+    "enzyme-adapter-react-16": "^1.1.1",
+    "gh-pages": "^1.2.0"
   }
 }

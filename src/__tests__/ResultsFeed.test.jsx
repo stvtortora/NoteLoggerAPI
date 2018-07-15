@@ -3,7 +3,7 @@ import ResultsFeed from '../components/content/resultsFeed';
 import Post from '../components/content/post';
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { shallow, mount, render } from 'enzyme';
+import { shallow } from 'enzyme';
 
 configure({ adapter: new Adapter() });
 
@@ -13,7 +13,7 @@ describe('<ResultsFeed>', () => {
 
   const resultsFeed = () => {
     if (!mountedResultsFeed) {
-      mountedResultsFeed = mount(
+      mountedResultsFeed = shallow(
         <ResultsFeed {...props} />
       );
     }
