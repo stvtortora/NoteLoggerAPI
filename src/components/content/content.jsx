@@ -54,10 +54,6 @@ class Content extends Component {
     })
   }
 
-  renderErrors = (errors) => {
-
-  }
-
   render() {
     return (
       <div className="content">
