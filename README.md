@@ -45,7 +45,9 @@ Alternatively, we can use the post's url to make another call to `$.getJSON`. We
 
 ##Testing
 
-There can be more tests. Specifically, we can test whether componentDidUpdate is called after the `<ResultsFeed> ` receives search results. We could also test whether our error message shows when we enter a non-existent subreddit.  
+There can be more tests. Specifically, we can test whether componentDidUpdate is called after the `<ResultsFeed> ` receives search results. We could also test whether our error message shows when we enter a non-existent subreddit.   
+
+Another route we can go is testing the methods we use to fetch and filter JSON. More specifically, we could test if `parseInput` returns its input with spaces removed, and if `filterResults` outputs the specific data we want.
 
 ##Styling
 
