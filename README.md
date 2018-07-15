@@ -27,7 +27,6 @@ To deploy the app, I used `gh-pages `, a module that allows you to deploy a Reac
 ``` javascript
 
 "scripts": {
-  "predeploy": "npm run build",
   "deploy": "gh-pages -d build"
 }
 
@@ -37,7 +36,7 @@ To deploy the app, I used `gh-pages `, a module that allows you to deploy a Reac
 
 ##Links
 
-Since a post's text gets cut off if its too large for the component it's wrapped in, it would make sense to turn the post's title into a link to the actual post. If given more time, this could be accomplished by including the post's url in the properties we extract from our JSON response and assigning it as the `src` of a `href` tag.  
+Since a post's text gets cut off if its too large for the component it's wrapped in, it would make sense to turn the post's title into a link to the actual post so we can read the rest of it. If given more time, this could be accomplished by including the post's url in the properties we extract from our JSON response and assigning it as the `src` of a `href` tag.  
 
 ##Routing
 
