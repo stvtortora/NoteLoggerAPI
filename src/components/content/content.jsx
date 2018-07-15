@@ -8,30 +8,9 @@ class Content extends Component {
     super();
     this.state = {
       input: '',
-      searchResults: []
+      searchResults: [],
+      errorMessage: ''
     }
-  }
-
-  onInputChange = (event) => {
-    this.setState({
-      input: event.target.value
-    })
-  }
-
-  onSubmit = () => {
-    this.retrieveData(this.state.input).done(res => {
-      this.setState({
-        searchResults: this.filterResults(res)
-      })
-    }).fail(errors => {
-      this.renderErrors(errors)
-    });;
-  }
-
-  retrieveData = (input) => {
-    return $.getJSON(`https://www.reddit.com/r/${this.parseInput(input)}.json`, res => {
-      return res;
-    })
   }
 
   filterResults = (results) => {
@@ -46,11 +25,36 @@ class Content extends Component {
     });
   }
 
+  onInputChange = (event) => {
+    this.setState({
+      input: event.target.value
+    })
+  }
+
+  onSubmit = () => {
+    this.retrieveData(this.state.input).done(res => {
+      this.setState({
+        searchResults: this.filterResults(res),
+        errorMessage: ''
+      })
+    }).fail(() => {
+      this.setState({
+        errorMessage: 'Please enter the name of an existing subreddit.'
+      })
+    });;
+  }
+
   parseInput = (input) => {
     return input.split(' ').join('');
   }
 
-  renderErrors = (err) => {
+  retrieveData = (input) => {
+    return $.getJSON(`https://www.reddit.com/r/${this.parseInput(input)}.json`, res => {
+      return res;
+    })
+  }
+
+  renderErrors = (errors) => {
 
   }
 
@@ -58,6 +62,7 @@ class Content extends Component {
     return (
       <div className="content">
         <Search onInputChange={ this.onInputChange } onSubmit={ this.onSubmit }/>
+        <p>{ this.state.errorMessage }</p>
         <ResultsFeed searchResults={ this.state.searchResults }/>
       </div>
     );
