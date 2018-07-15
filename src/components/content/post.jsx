@@ -9,7 +9,7 @@ const Post = ({ data }) => {
      <img src={ thumbnail } />
      <div>
        <h2>{data.title}</h2>
-       <p className='author-name' >Author: {data.author}</p>
+       <p className='author-name' > <strong>Author:</strong> {data.author}</p>
        <p className='post-text' >{data.selftext}</p>
      </div>
    </div>

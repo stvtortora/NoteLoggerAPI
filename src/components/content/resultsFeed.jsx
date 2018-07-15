@@ -39,8 +39,8 @@ class ResultsFeed extends React.Component {
       const posts = postsData.slice(this.state.startIdx, this.state.endIdx).map((postData, i) => {
         return <Post key={i} data={postData} />
       });
-      const previousArrow = this.state.startIdx > 0 ? <i className='previous' onClick={ this.handleScroll(-3) }/ > : null;
-      const nextArrow = this.state.endIdx < postsData.length ? <i className='next' onClick={ this.handleScroll(3) }/ > : null;
+      const previousArrow = this.state.startIdx > 0 ? <i className='previous' onClick={ this.handleScroll(-3) }/ > : <div className='arrow-placeholder'/>;
+    const nextArrow = this.state.endIdx < postsData.length ? <i className='next' onClick={ this.handleScroll(3) }/ > : <div className='arrow-placeholder'/>;
 
       return(
         <div className='feed'>
