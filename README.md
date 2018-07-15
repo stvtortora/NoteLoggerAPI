@@ -27,6 +27,7 @@ To deploy the app, I used `gh-pages `, a module that allows you to deploy a Reac
 ``` javascript
 
 "scripts": {
+  "predeploy": "npm run build",
   "deploy": "gh-pages -d build"
 }
 
