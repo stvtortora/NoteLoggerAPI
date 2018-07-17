@@ -38,7 +38,7 @@ To deploy the app, I used `gh-pages `, which leverages github pages. To complete
 
 ## Links
 
-Since a post's text gets cut off if its too large, it would make sense to turn the post's title into a link to the actual post so we can read the rest of it. If given more time, this could be accomplished by including the post's url in the properties we extract from our JSON response and assigning it as the `src` of a `href` tag.  
+Since a post's text gets cut off if its too large, it would make sense to turn the post's title into a link to the actual post so we can read the rest of it. If given more time, this could be accomplished by including the post's url in the properties we extract from our JSON response and assigning it as the `href` of a `a` tag.  
 
 ## Routing
 
