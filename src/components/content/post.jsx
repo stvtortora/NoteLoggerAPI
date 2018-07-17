@@ -2,7 +2,8 @@ import React from 'react';
 import RedditIcon from '../../assets/reddit_icon.svg';
 
 const Post = ({ data }) => {
-  const thumbnail = data.thumbnail ? data.thumbnail : RedditIcon;
+  debugger
+  const thumbnail = data.thumbnail && data.thumbnail !== 'self' ? data.thumbnail : RedditIcon;
 
   return (
    <div className='post'>
