@@ -14,9 +14,9 @@ To start up the process, I used create-react-app. Create-react-app is a handy to
 
 ## jQuery
 
-Okay, so I know I criticized jQuery before, but it has one method that's pretty useful for extracting JSON from a webpage, `$.getSON`. `$.getSON` returns a promise, which I used to update the app's state with either search results or an error message.
+Okay, so I know I criticized jQuery before, but it has one method that's pretty useful for extracting JSON from a webpage, `$.getJSON`. `$.getJSON` returns a promise, which I used to update the app's state with either search results or an error message.
 
-##enzyme
+## enzyme
 
 Enzyme is a module made specifically for React and contains a ton of useful testing methods. In this project, I used enzyme's `shallow` method to render components for testing. I used `shallow` rather than `mount` because I didn't need to render all of a component's children for the tests.
 
