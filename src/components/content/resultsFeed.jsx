@@ -28,7 +28,7 @@ class ResultsFeed extends React.Component {
       this.setState({
         startIdx: this.state.startIdx + offSet,
         endIdx: this.state.endIdx + offSet
-      })
+      });
     }
   }
 

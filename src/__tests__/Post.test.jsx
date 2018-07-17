@@ -18,7 +18,7 @@ describe('<Post>', () => {
 
   let post = shallow(
     <Post {...props}/>
-  );
+  )
 
   it('displays a thumbanil image', () => {
     expect(post.find('img').length).toBe(1);

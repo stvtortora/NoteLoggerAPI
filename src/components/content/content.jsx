@@ -21,14 +21,14 @@ class Content extends Component {
         }
 
         return postData;
-      }, {})
+      }, {});
     });
   }
 
   onInputChange = (event) => {
     this.setState({
       input: event.target.value
-    })
+    });
   }
 
   onSubmit = () => {
@@ -36,12 +36,12 @@ class Content extends Component {
       this.setState({
         searchResults: this.filterResults(res),
         errorMessage: ''
-      })
+      });
     }).fail(() => {
       this.setState({
         errorMessage: 'Please enter the name of an existing subreddit.'
-      })
-    });;
+      });
+    });
   }
 
   parseInput = (input) => {
@@ -51,7 +51,7 @@ class Content extends Component {
   retrieveData = (input) => {
     return $.getJSON(`https://www.reddit.com/r/${this.parseInput(input)}.json`, res => {
       return res;
-    })
+    });
   }
 
   render() {

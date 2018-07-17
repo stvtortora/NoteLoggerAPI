@@ -12,7 +12,7 @@ class App extends React.Component {
         <Content />
         <Footer />
       </div>
-    );
+    )
   }
 }
 

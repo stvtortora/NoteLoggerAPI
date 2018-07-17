@@ -6,9 +6,9 @@ const Search = ({ onInputChange, onSubmit }) => {
     <div>
       <img src={ RedditIcon } className='reddit-icon'/>
         <div className='search'>
-          <input type='text' placeholder='Search subreddits here...' onChange={onInputChange}/>
+          <input type='text' placeholder='Search subreddits here...' onChange={ onInputChange }/>
           <br/>
-          <button onClick={onSubmit}>Search</button>
+          <button onClick={ onSubmit }>Search</button>
         </div>
     </div>
   )

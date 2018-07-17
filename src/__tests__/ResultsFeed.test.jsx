@@ -60,7 +60,7 @@ describe('<ResultsFeed>', () => {
           "otherProp": "A property"
         }
       ]
-    })
+    });
 
     it("displays at most three posts", () => {
       expect(resultsFeed().find(Post).length).toBe(3);

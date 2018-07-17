@@ -11,7 +11,7 @@ configure({ adapter: new Adapter() });
 describe('<Content>', () => {
   let content = shallow(
     <Content />
-  );
+  )
 
   it('renders Search', () => {
     expect(content.find(Search).length).toBe(1);
