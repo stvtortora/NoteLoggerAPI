@@ -1,5 +1,7 @@
 # Setup
 
+To checkout the code for the original version without connection to a server, head over to the no-server branch of this repo.
+
 To check out the app, head over to https://www.steventortora.com/SubredditBrowser/ (more on how this was done later).
 
 # Technologies
