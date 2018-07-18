@@ -58,25 +58,6 @@ app.delete('/subreddits/:id', authenticate, (req, res) => {
   });
 });
 
-// app.patch('/subreddits/:id', (req, res) => {
-//   const id = req.params.id;
-//   const body = _.pick(req.body, ['text']);
-//
-//   if(!ObjectID.isValid(id)) {
-//     return res.status(404).send();
-//   }
-//
-//   SubReddit.findByIdAndUpdate(id, {$set: body}, {new: true}).then(subreddit => {
-//     if(!subreddit) {
-//       return res.status(404).send();
-//     }
-//
-//     res.send({subreddit});
-//   }).catch((e) => {
-//     res.status(400).send(e);
-//   })
-// })
-
 app.post('/users', (req, res) => {
   const userParams = _.pick(req.body, ['username', 'password']);
   const user = new User(userParams);
