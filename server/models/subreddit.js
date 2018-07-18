@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-var Note = mongoose.model('Note', {
+var SubReddit = mongoose.model('Note', {
   text:{
     type: String,
     required: true,
@@ -13,4 +13,4 @@ var Note = mongoose.model('Note', {
   }
 })
 
-module.exports = {Note};
+module.exports = {SubReddit};

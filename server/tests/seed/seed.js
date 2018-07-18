@@ -1,7 +1,7 @@
 const {ObjectID} = require('mongodb');
 const jwt = require('jsonwebtoken');
 
-const {Note} = require('./../../models/note');
+const {SubReddit} = require('./../../models/subreddit');
 const {User} = require('./../../models/user');
 
 const testUserOneId = new ObjectID();
@@ -34,20 +34,20 @@ const generateUsers = (done) => {
   }).then(() => done());
 }
 
-const notes = [{
+const subreddits = [{
   _id: new ObjectID(),
-  text: 'test note 1',
+  text: 'test subreddit 1',
   userId: testUserOneId
 }, {
   _id: new ObjectID(),
-  text: 'test note 2',
+  text: 'test subreddit 2',
   userId: testUserTwoId
 }];
 
-const generateNotes = (done) => {
-  Note.remove({}).then(() => {
-    return Note.insertMany(notes);
+const generateSubReddits = (done) => {
+  SubReddit.remove({}).then(() => {
+    return SubReddit.insertMany(subreddits);
   }).then(() => done());
 }
 
-module.exports = {notes, generateNotes, users, generateUsers};
+module.exports = {subreddits, generateSubReddits, users, generateUsers};

@@ -3,19 +3,19 @@ const request = require('supertest');
 const {ObjectID} = require('mongodb');
 
 const {app} = require('./../server');
-const {Note} = require('./../models/note');
-const {notes, generateNotes, users, generateUsers} = require('./seed/seed');
+const {SubReddit} = require('./../models/subreddit');
+const {subreddits, generateSubReddits, users, generateUsers} = require('./seed/seed');
 
 
 beforeEach(generateUsers);
-beforeEach(generateNotes);
+beforeEach(generateSubReddits);
 
-describe('POST /notes', () => {
-  it('should create a new note', (done) => {
-    const text = 'Test note text';
+describe('POST /subreddits', () => {
+  it('should create a new subreddit', (done) => {
+    const text = 'Test subreddit text';
 
     request(app)
-      .post('/notes')
+      .post('/subreddits')
       .set('x-auth', users[0].tokens[0].token)
       .send({text})
       .expect(200)
@@ -27,17 +27,17 @@ describe('POST /notes', () => {
         return done(err);
       }
 
-      Note.find({text}).then((notes) => {
-        expect(notes.length).toBe(1);
-        expect(notes[0].text).toBe(text);
+      SubReddit.find({text}).then((subreddits) => {
+        expect(subreddits.length).toBe(1);
+        expect(subreddits[0].text).toBe(text);
         done();
       }).catch((e) => done(e));
     });
   });
 
-  it('should not create note with invalid body data', (done) => {
+  it('should not create subreddit with invalid body data', (done) => {
     request(app)
-      .post('/notes')
+      .post('/subreddits')
       .set('x-auth', users[0].tokens[0].token)
       .send({})
       .expect(400)
@@ -46,93 +46,56 @@ describe('POST /notes', () => {
         return done(err);
       }
 
-      Note.find().then((notes) => {
-        expect(notes.length).toBe(2);
+      SubReddit.find().then((subreddits) => {
+        expect(subreddits.length).toBe(2);
         done();
       }).catch((e) => done(e));
     });
   });
 });
 
-describe('GET /notes', () => {
-  it('should get all notes', (done) => {
+describe('GET /subreddits', () => {
+  it('should get all subreddits', (done) => {
     request(app)
-    .get('/notes')
+    .get('/subreddits')
     .set('x-auth', users[0].tokens[0].token)
     .expect(200)
     .expect((res) => {
-      expect(res.body.notes.length).toBe(1);
+      expect(res.body.subreddits.length).toBe(1);
     })
     .end(done)
   });
 });
 
-describe('GET /notes/:id', () => {
-  it('should get a single note', (done) => {
-    request(app)
-    .get(`/notes/${notes[0]._id.toHexString()}`)
-    .set('x-auth', users[0].tokens[0].token)
-    .expect(200)
-    .expect(res => {
-      expect(res.body.note.text).toBe(notes[0].text)
-    })
-    .end(done);
-  });
 
-  it('should not get a note created by a different user', (done) => {
-    request(app)
-    .get(`/notes/${notes[1]._id.toHexString()}`)
-    .set('x-auth', users[0].tokens[0].token)
-    .expect(404)
-    .end(done);
-  });
-
-  it('should return 404 if note is not found', (done) => {
-    const outSideId = new ObjectID().toHexString();
-    request(app)
-    .get(`/notes/${outSideId}`)
-    .set('x-auth', users[0].tokens[0].token)
-    .expect(404)
-    .end(done)
-  });
-
-  it('should return 404 for invalid ids', (done) => {
-    request(app)
-    .get(`/notes/invalidId`)
-    .set('x-auth', users[0].tokens[0].token)
-    .expect(404)
-    .end(done)
-  });
-})
-
-describe('DELETE /notes/:id', () => {
-  it('should delete a single note', (done) => {
-    const id = notes[1]._id.toHexString();
+describe('DELETE /subreddits/:id', () => {
+  it('should delete a single subreddit', (done) => {
+    const id = subreddits[1]._id.toHexString();
 
     request(app)
-    .delete(`/notes/${id}`)
+    .delete(`/subreddits/${id}`)
     .set('x-auth', users[1].tokens[0].token)
     .expect(200)
     .expect((res) => {
-      expect(res.body.note._id).toBe(id)
+      expect(res.body.subreddit._id).toBe(id)
     })
     .end((err, res) => {
       if(err){
         return done(err);
       }
 
-      Note.findById(id).then((note) => {
-        expect(note).toBeFalsy();
+      SubReddit.findById(id).then((subreddit) => {
+        expect(subreddit).toBeFalsy();
         done();
       }).catch((e) => done(e));
     })
   })
 
-  it('should not delete a note created by a different user', (done) => {
-    const id = notes[0]._id.toHexString();
+  it('should not delete a subreddit created by a different user', (done) => {
+    const id = subreddits[0]._id.toHexString();
 
     request(app)
-    .delete(`/notes/${id}`)
+    .delete(`/subreddits/${id}`)
     .set('x-auth', users[1].tokens[0].token)
     .expect(404)
     .end((err, res) => {
@@ -140,18 +103,18 @@ describe('DELETE /notes/:id', () => {
         return done(err);
       }
 
-      Note.findById(id).then((note) => {
-        expect(note).toBeTruthy();
+      SubReddit.findById(id).then((subreddit) => {
+        expect(subreddit).toBeTruthy();
         done();
       }).catch((e) => done(e));
     })
   })
 
 
-  it('should return 404 if note is not found', done => {
+  it('should return 404 if subreddit is not found', done => {
     const outSideId = new ObjectID().toHexString();
     request(app)
-    .delete(`/notes/${outSideId}`)
+    .delete(`/subreddits/${outSideId}`)
     .set('x-auth', users[1].tokens[0].token)
     .expect(404)
     .end(done)
@@ -159,25 +122,71 @@ describe('DELETE /notes/:id', () => {
 
   it('should return 404 for invalid ids', (done) => {
     request(app)
-    .delete(`/notes/invalidId`)
+    .delete(`/subreddits/invalidId`)
     .set('x-auth', users[1].tokens[0].token)
     .expect(404)
     .end(done)
   });
 });
 
-describe('PATCH /notes/:id', () => {
-  it('should update the note', done => {
-    const id = notes[1]._id.toHexString();
-    const text = 'new text';
 
-    request(app)
-    .patch(`/notes/${id}`)
-    .send({text})
-    .expect(200)
-    .expect(res => {
-      expect(res.body.note.text).toBe(text)
-    })
-    .end(done);
-  });
-})
+
+// describe('PATCH /subreddits/:id', () => {
+//   it('should update the subreddit', done => {
+//     const id = subreddits[1]._id.toHexString();
+//     const text = 'new text';
+//
+//     request(app)
+//     .patch(`/subreddits/${id}`)
+//     .send({text})
+//     .expect(200)
+//     .expect(res => {
+//       expect(res.body.subreddit.text).toBe(text)
+//     })
+//     .end(done);
+//   });
+
+
+
+
+
+
+
+
+// describe('GET /subreddits/:id', () => {
+//   it('should get a single subreddit', (done) => {
+//     request(app)
+//     .get(`/subreddits/${subreddits[0]._id.toHexString()}`)
+//     .set('x-auth', users[0].tokens[0].token)
+//     .expect(200)
+//     .expect(res => {
+//       expect(res.body.subreddit.text).toBe(subreddits[0].text)
+//     })
+//     .end(done);
+//   });
+//
+//   it('should not get a subreddit created by a different user', (done) => {
+//     request(app)
+//     .get(`/subreddits/${subreddits[1]._id.toHexString()}`)
+//     .set('x-auth', users[0].tokens[0].token)
+//     .expect(404)
+//     .end(done);
+//   });
+//
+//   it('should return 404 if subreddit is not found', (done) => {
+//     const outSideId = new ObjectID().toHexString();
+//     request(app)
+//     .get(`/subreddits/${outSideId}`)
+//     .set('x-auth', users[0].tokens[0].token)
+//     .expect(404)
+//     .end(done)
+//   });
+//
+//   it('should return 404 for invalid ids', (done) => {
+//     request(app)
+//     .get(`/subreddits/invalidId`)
+//     .set('x-auth', users[0].tokens[0].token)
+//     .expect(404)
+//     .end(done)
+//   });
+// })

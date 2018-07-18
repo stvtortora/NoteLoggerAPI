@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const {ObjectID} = require('mongodb');
 
 var { mongoose } = require('./db/mongoose');
-const { Note } = require('./models/note');
+const { SubReddit } = require('./models/subreddit');
 const { User } = require('./models/user');
 const { authenticate } = require('./middleware/authenticate');
 
@@ -14,87 +14,68 @@ const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
-app.post('/notes', authenticate, (req, res) => {
-  const note = new Note({
+app.post('/subreddits', authenticate, (req, res) => {
+  const subreddit = new SubReddit({
     text: req.body.text,
     userId: req.user._id
   });
 
-  note.save().then((doc) => {
+  subreddit.save().then((doc) => {
     res.send(doc);
   }, (e) => {
     res.status(400).send(e);
   });
 });
 
-app.get('/notes', authenticate, (req, res) => {
-  Note.find({
+app.get('/subreddits', authenticate, (req, res) => {
+  SubReddit.find({
     userId: req.user._id
-  }).then((notes) => {
-    res.send({notes});
+  }).then((subreddits) => {
+    res.send({subreddits});
   }, (e) =>{
     res.status(400).send(e);
   });
 });
 
-app.get('/notes/:id', authenticate, (req, res) => {
+
+app.delete('/subreddits/:id', authenticate, (req, res) => {
   const id = req.params.id;
 
   if(!ObjectID.isValid(id)) {
     return res.status(404).send();
   }
 
-  Note.findOne({
+  SubReddit.findOneAndRemove({
     _id: id,
     userId: req.user._id
-  }).then(note => {
-    if(!note){
+  }).then(subreddit => {
+    if(!subreddit) {
       return res.status(404).send();
     }
-    res.send({note})
+    res.send({subreddit})
   }).catch((e) => {
     res.status(400).send();
   });
 });
 
-app.delete('/notes/:id', authenticate, (req, res) => {
-  const id = req.params.id;
-
-  if(!ObjectID.isValid(id)) {
-    return res.status(404).send();
-  }
-
-  Note.findOneAndRemove({
-    _id: id,
-    userId: req.user._id
-  }).then(note => {
-    if(!note) {
-      return res.status(404).send();
-    }
-    res.send({note})
-  }).catch((e) => {
-    res.status(400).send();
-  });
-});
-
-app.patch('/notes/:id', (req, res) => {
-  const id = req.params.id;
-  const body = _.pick(req.body, ['text']);
-
-  if(!ObjectID.isValid(id)) {
-    return res.status(404).send();
-  }
-
-  Note.findByIdAndUpdate(id, {$set: body}, {new: true}).then(note => {
-    if(!note) {
-      return res.status(404).send();
-    }
-
-    res.send({note});
-  }).catch((e) => {
-    res.status(400).send(e);
-  })
-})
+// app.patch('/subreddits/:id', (req, res) => {
+//   const id = req.params.id;
+//   const body = _.pick(req.body, ['text']);
+//
+//   if(!ObjectID.isValid(id)) {
+//     return res.status(404).send();
+//   }
+//
+//   SubReddit.findByIdAndUpdate(id, {$set: body}, {new: true}).then(subreddit => {
+//     if(!subreddit) {
+//       return res.status(404).send();
+//     }
+//
+//     res.send({subreddit});
+//   }).catch((e) => {
+//     res.status(400).send(e);
+//   })
+// })
 
 app.post('/users', (req, res) => {
   const userParams = _.pick(req.body, ['username', 'password']);
