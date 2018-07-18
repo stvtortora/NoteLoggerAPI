@@ -40,6 +40,24 @@ UserSchema.methods.generateAuthToken = function () {
   })
 }
 
+UserSchema.statics.findByCredentials = function (username, password) {
+  return this.findOne({username}).then(user => {
+    if(!user) {
+      return Promise.reject();
+    }
+
+    return new Promise((resolve, reject) => {
+      bcrypt.compare(password, user.password, (err, res) => {
+        if(res) {
+          resolve(user);
+        } else {
+          reject();
+        }
+      });
+    });
+  });
+}
+
 UserSchema.statics.findByToken = function (token) {
   let decoded;
 
@@ -58,6 +76,16 @@ UserSchema.statics.findByToken = function (token) {
 
 UserSchema.methods.toJSON = function () {
   return _.pick(this.toObject(), ['_id', 'username']);
+}
+
+UserSchema.methods.removeToken = function (token) {
+  return this.update({
+    $pull: {
+      tokens: {
+        token
+      }
+    }
+  })
 }
 
 UserSchema.pre('save', function (next) {

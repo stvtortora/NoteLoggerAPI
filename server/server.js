@@ -14,9 +14,10 @@ const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
-app.post('/notes', (req, res) => {
+app.post('/notes', authenticate, (req, res) => {
   const note = new Note({
-    text: req.body.text
+    text: req.body.text,
+    userId: req.user._id
   });
 
   note.save().then((doc) => {
@@ -26,22 +27,27 @@ app.post('/notes', (req, res) => {
   });
 });
 
-app.get('/notes', (req, res) => {
-  Note.find().then((notes) => {
+app.get('/notes', authenticate, (req, res) => {
+  Note.find({
+    userId: req.user._id
+  }).then((notes) => {
     res.send({notes});
   }, (e) =>{
     res.status(400).send(e);
   });
 });
 
-app.get('/notes/:id', (req, res) => {
+app.get('/notes/:id', authenticate, (req, res) => {
   const id = req.params.id;
 
   if(!ObjectID.isValid(id)) {
     return res.status(404).send();
   }
 
-  Note.findById(id).then(note => {
+  Note.findOne({
+    _id: id,
+    userId: req.user._id
+  }).then(note => {
     if(!note){
       return res.status(404).send();
     }
@@ -51,14 +57,17 @@ app.get('/notes/:id', (req, res) => {
   });
 });
 
-app.delete('/notes/:id', (req, res) => {
+app.delete('/notes/:id', authenticate, (req, res) => {
   const id = req.params.id;
 
   if(!ObjectID.isValid(id)) {
     return res.status(404).send();
   }
 
-  Note.findByIdAndRemove(id).then(note => {
+  Note.findOneAndRemove({
+    _id: id,
+    userId: req.user._id
+  }).then(note => {
     if(!note) {
       return res.status(404).send();
     }
@@ -105,6 +114,28 @@ app.post('/users', (req, res) => {
 app.get('/users/current', authenticate, (req, res) => {
   res.send(req.user);
 });
+
+app.post('/users/login', (req, res) => {
+  const userParams = _.pick(req.body, ['username', 'password']);
+
+  User.findByCredentials(userParams.username, userParams.password).then(user => {
+
+    return user.generateAuthToken().then(token => {
+      res.header('x-auth', token).send(user);
+    })
+    res.send(user);
+  }).catch((e) => {
+    res.status(400).send();
+  });
+})
+
+app.delete('/users/current/token', authenticate, (req, res) => {
+  req.user.removeToken(req.token).then(() => {
+    res.status(200).send();
+  }, () => {
+    res.status(400).send();
+  })
+})
 
 
 app.listen(port, () => {
