@@ -7,7 +7,7 @@ const Post = ({ data }) => {
 
   return (
    <div className='post'>
-     <img src={ thumbnail } />
+     <img src={ thumbnail } alt='Cannot Display'/>
      <div>
        <h2>{data.title}</h2>
        <p className='author-name' ><strong>Author:</strong> { data.author }</p>

@@ -6,9 +6,9 @@ const Footer = () => {
   return(
     <footer>
       <p>Powered By</p>
-      <div className='img-container'>
-        <img className='footer-img' src={RedditLogo} />
-        <img className='footer-img' src={FrameLogo} />
+      <div className='img-container' alt='Cannot Display'>
+        <img className='footer-img' src={RedditLogo} alt='Cannot Display'/>
+        <img className='footer-img' src={FrameLogo} alt='Cannot Display'/>
       </div>
     </footer>
   )

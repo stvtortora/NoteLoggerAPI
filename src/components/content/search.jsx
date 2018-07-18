@@ -4,7 +4,7 @@ import RedditIcon from '../../assets/reddit_icon.svg';
 const Search = ({ onInputChange, onSubmit }) => {
   return (
     <div>
-      <img src={ RedditIcon } className='reddit-icon'/>
+      <img src={ RedditIcon } className='reddit-icon' alt='Cannot Display'/>
         <div className='search'>
           <input type='text' placeholder='Search subreddits here...' onChange={ onInputChange }/>
           <br/>
