@@ -21,6 +21,10 @@ app.use(cors());
 //   next();
 // });
 
+app.get('/', (req, res) => {
+  res.send('test works');
+})
+
 app.post('/subreddits', authenticate, (req, res) => {
   const subreddit = new SubReddit({
     text: req.body.text,
