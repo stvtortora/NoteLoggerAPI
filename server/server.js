@@ -22,7 +22,7 @@ app.use(cors());
 // });
 
 app.get('/', (req, res) => {
-  res.send('test works');
+  res.send({"message": "it works"});
 })
 
 app.post('/subreddits', authenticate, (req, res) => {
