@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGO_URI) || 'mongodb://localhost:27017/subredditeapp';
+mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true }) || 'mongodb://localhost:27017/subredditeapp';
 
 module.exports = {mongoose};
