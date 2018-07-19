@@ -2,6 +2,7 @@ require('./config/config');
 const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const {ObjectID} = require('mongodb');
 
 var { mongoose } = require('./db/mongoose');
@@ -13,6 +14,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
+app.use(cors());
 
 app.post('/subreddits', authenticate, (req, res) => {
   const subreddit = new SubReddit({
