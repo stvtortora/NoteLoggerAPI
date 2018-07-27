@@ -7,19 +7,58 @@
  padding-bottom: 100px;
 }
 
-.content {
-  text-align: center;
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
+ .menu {
+   margin: 25px 40px 0px 40px;
+   position: relative;
+   display: inline-block;
+ }
+
+ .menu-display {
+   width: 35px;
+   height: 5px;
+   background-color: black;
+   margin: 6px 0;
+ }
+
+ .menu:hover .menu-dropdown {
+   display: block;
+ }
+
+ .menu-dropdown {
+   display: none;
+   position: absolute;
+   right: -5px;
+   background-color: white;
+   padding: 5px 15px 5px 15px;
+ }
+
+ .menu-option:hover {
+   color: #ff6000;
+   cursor: pointer;
+ }
+
 .header-img {
   height: 30px;
   width: auto;
   margin: 25px 0px 0px 40px;
 }
 
+.content {
+  text-align: center;
+}
+
 .reddit-icon {
+  position: relative;
   height: 30px;
   width: auto;
-  margin: 0;
+  margin: 5px;
+  top: 13px;
+  left: -2px;
 }
 
 .search > input {
