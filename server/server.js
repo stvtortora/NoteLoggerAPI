@@ -18,7 +18,6 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE, OPTIONS');
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, X-Auth, Accept");
-  // res.header("Access-Control-Request-Headers", "x-auth")
   res.header("Access-Control-Expose-Headers", "x-auth")
   next();
 });
@@ -29,13 +28,18 @@ app.get('/', (req, res) => {
 
 app.post('/subreddits', authenticate, (req, res) => {
   const subreddit = new SubReddit({
-    text: req.body.text,
-    userId: req.user._id
+    selftext: req.body.selftext,
+    userId: req.user._id,
+    author: req.body.author,
+    thumbnail: req.body.thumbnail,
+    title: req.body.title,
   });
+  console.log(subreddit)
 
   subreddit.save().then((doc) => {
     res.send(doc);
   }, (e) => {
+    console.log('fuck')
     res.status(400).send(e);
   });
 });
