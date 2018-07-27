@@ -33,13 +33,12 @@ app.post('/subreddits', authenticate, (req, res) => {
     author: req.body.author,
     thumbnail: req.body.thumbnail,
     title: req.body.title,
+    permalink: req.body.permalink
   });
-  console.log(subreddit)
 
   subreddit.save().then((doc) => {
     res.send(doc);
   }, (e) => {
-    console.log('fuck')
     res.status(400).send(e);
   });
 });

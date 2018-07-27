@@ -2,24 +2,23 @@ const mongoose = require('mongoose');
 
 var SubReddit = mongoose.model('Note', {
   selftext: {
-    type: String,
-    trim: true
+    type: String
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true
   },
   author: {
-    type: String,
-    required: true
+    type: String
   },
   thumbnail: {
-    type: String,
-    required: true
+    type: String
   },
   title: {
-    type: String,
-    required: true
+    type: String
+  },
+  permalink: {
+    type: String
   }
 })
 
