@@ -1,15 +1,29 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Search from './search';
 import ResultsFeed from './resultsFeed';
+import { fetchSubReddits } from './../../actions/sub_reddit_actions';
 import $ from 'jquery';
 
 class Content extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       input: '',
       searchResults: [],
       errorMessage: ''
+    }
+  }
+
+  componentDidMount () {
+    fetchSubReddits(this.props.user);
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    if (this.props.favorites !== prevProps.favorites && prevProps.favorites === prevState.searchResults) {
+      this.setState({
+        searchResults: this.props.favorites
+      })
     }
   }
 
@@ -54,10 +68,17 @@ class Content extends Component {
     });
   }
 
+  showFavorites = () => {
+    this.setState({
+      searchResults: this.props.favorites
+    })
+  }
+
   render() {
     return (
       <div className="content">
         <Search onInputChange={ this.onInputChange } onSubmit={ this.onSubmit }/>
+        <div onClick={ this.showFavorites }>Favorites</div>
         <p>{ this.state.errorMessage }</p>
         <ResultsFeed searchResults={ this.state.searchResults }/>
       </div>
@@ -65,4 +86,20 @@ class Content extends Component {
   }
 }
 
-export default Content;
+const mapStateToProps = state => {
+  const favorites = Object.keys(state.subRedditFavs).map(id => {
+    return state.subRedditFavs[id];
+  });
+
+  return ({
+    favorites,
+    user: state.session
+  })
+
+}
+
+const mapDispatchToProps = dispatch => ({
+  fetchSubReddits: (user) => dispatch(fetchSubReddits(user))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Content);

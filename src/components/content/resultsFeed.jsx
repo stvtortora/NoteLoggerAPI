@@ -1,5 +1,6 @@
 import React from 'react'
 import Post from './post';
+import { connect } from 'react-redux';
 
 
 class ResultsFeed extends React.Component {
@@ -37,7 +38,10 @@ class ResultsFeed extends React.Component {
 
     if(postsData.length){
       const posts = postsData.slice(this.state.startIdx, this.state.endIdx).map((postData, i) => {
-        return <Post key={i} data={postData} />
+        const postId = Object.keys(this.props.favorites).find(id => {
+          return this.props.favorites[id].title === postData.title;
+        })
+        return <Post key={i} data={postData} postId={postId}/>
       });
 
       const previousArrow = this.state.startIdx > 0 ? <i className='previous' onClick={ this.handleScroll(-3) }/ > : <div className='arrow-placeholder'/>;
@@ -58,6 +62,10 @@ class ResultsFeed extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  favorites: state.subRedditFavs,
+  user: state.session
+})
 
 
-export default ResultsFeed;
+export default connect(mapStateToProps)(ResultsFeed);
