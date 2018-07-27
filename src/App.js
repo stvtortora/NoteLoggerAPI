@@ -7,6 +7,7 @@ import FavoritePosts from './components/favorite_posts/favorite_posts';
 import Login from './components/session/login';
 import Header from './components/header/header';
 import Footer from './components/footer';
+import FullPost from './components/post/full_post';
 
 const App = ({store}) => {
   return (
@@ -17,6 +18,7 @@ const App = ({store}) => {
             <Route exact path='/' component={Login}/>
             <Route exact path='/search' component={Content}/>
             <Route exact path='./favorites' component={FavoritePosts}/>
+            <Route path='./post' component={FullPost}/>
           <Footer />
         </div>
       </HashRouter>

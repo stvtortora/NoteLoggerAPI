@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { logout } from './../../actions/session_actions';
+import { showFavorites } from './../../actions/ui_actions';
 
 class Menu extends React.Component {
   constructor(props) {
@@ -14,11 +15,11 @@ class Menu extends React.Component {
     });
   }
 
-  handleRedirect = (path) => {
-    () => {
-      this.props.history.push(path)
-    }
-  }
+  // handleRedirect = (path) => {
+  //   () => {
+  //     this.props.history.push(path)
+  //   }
+  // }
 
   render () {
     if (this.props.user) {
@@ -28,8 +29,7 @@ class Menu extends React.Component {
           <div className='menu-display'></div>
           <div className='menu-display'></div>
           <div className='menu-dropdown'>
-            <p className='menu-option' onClick={this.handleRedirect('./search')}>Search</p>
-            <p className='menu-option' onClick={this.handleRedirect('./favorites')}>Favorite Posts</p>
+            <p className='menu-option' onClick={() => this.props.showFavorites()}>Favorite Posts</p>
             <p className='menu-option' onClick={this.handleLogout}>Logout</p>
           </div>
         </div>
@@ -48,8 +48,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    logout: (user) => dispatch(logout(user))
+    logout: (user) => dispatch(logout(user)),
+    showFavorites: () => dispatch(showFavorites())
   }
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Menu));
+
+
+// <p className='menu-option' onClick={this.handleRedirect('./search')}>Search</p>

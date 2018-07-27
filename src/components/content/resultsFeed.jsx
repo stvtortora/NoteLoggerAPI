@@ -24,7 +24,7 @@ class ResultsFeed extends React.Component {
     }
   }
 
-  handleScroll(offSet) {
+  handleScroll (offSet) {
     return () => {
       this.setState({
         startIdx: this.state.startIdx + offSet,
