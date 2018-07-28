@@ -58,7 +58,6 @@ class Content extends Component {
 
   retrieveData = (input) => {
     return $.getJSON(`https://www.reddit.com/r/${this.parseInput(input)}.json`, res => {
-      console.log(res)
       return res;
     });
   }

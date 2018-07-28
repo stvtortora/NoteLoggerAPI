@@ -13,7 +13,6 @@ export default (state = {}, action) => {
     case ADD_SUBREDDIT:
       newState = merge({}, state);
       newState[action.subReddit._id] = action.subReddit;
-      console.log(newState)
       return newState;
     case REMOVE_SUBREDDIT:
       newState = merge({}, state);

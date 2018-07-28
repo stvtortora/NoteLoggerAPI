@@ -1,6 +1,7 @@
 import React from 'react';
 import RedditIcon from '../../assets/reddit_icon.svg';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { addFavorite, removeFavorite, updateCurrentPost } from './../../actions/sub_reddit_actions';
 
 class Post extends React.Component {
@@ -9,13 +10,11 @@ class Post extends React.Component {
   }
 
   handleViewPost = () => {
-    this.props.updateCurrentPost(this.props.data.permalink).then(() => {
-      this.props.hisory.push(`./post/${this.props.data.title}`)
-    })
+    this.props.updateCurrentPost(this.props.data.permalink)
+    this.props.history.push(`/post/${this.props.data.title}`)
   }
 
   render () {
-    console.log(this.props.data)
     const thumbnail = this.props.data.thumbnail && this.props.data.thumbnail.includes('https') ? this.props.data.thumbnail : RedditIcon;
     const favoriteButton = this.props.postId ? <p onClick={() => this.props.removeFavorite(this.props.postId, this.props.user)}>Remove From Favorites</p> : <p onClick={() => this.props.addFavorite(this.props.data, this.props.user)}>Add To Favorites</p>;
 
@@ -59,4 +58,4 @@ const mapDispatchToProps = dispatch => ({
   updateCurrentPost: (permalink) => dispatch(updateCurrentPost(permalink))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Post);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Post));

@@ -16,7 +16,7 @@ const App = ({store}) => {
           <Header />
             <Route exact path='/' component={Login}/>
             <Route exact path='/search' component={Content}/>
-            <Route path='./post' component={FullPost}/>
+            <Route path='/post/:title' component={FullPost}/>
           <Footer />
         </div>
       </HashRouter>

@@ -37,7 +37,6 @@ export const fetchSubReddits = (user) => {
 }
 
 export const addSubReddit = (subReddit, user) => {
-  console.log(subReddit)
   return $.ajax({
     method: 'POST',
     contentType: "application/json",
