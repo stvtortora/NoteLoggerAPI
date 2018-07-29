@@ -19,8 +19,6 @@ const Modal = ({modal, closeModal}) => {
     display = <EditPost />
   }
 
-  console.log(display)
-
   return (
     <div className="modal-background" onClick={closeModal}>
       <div className="modal-child" onClick={e => e.stopPropagation()}>

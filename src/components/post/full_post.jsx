@@ -44,10 +44,24 @@ class FullPost extends React.Component {
       const postId = Object.keys(this.props.favorites).find(id => {
         return this.props.favorites[id].title === this.props.data.title;
       })
-      const buttonType = postId ? '-Remove' : '+Save';
-      const modalData = postId ? postId : this.props.data;
+
+      let buttonType;
+      let editButton;
+      let modalData;
+
+      if (postId) {
+        buttonType = '-Remove';
+        modalData = postId;
+        editButton = <p className='save-button' onClick={() => this.props.setUpModal(this.props.favorites[postId], 'Edit')}>Edit</p>
+      } else {
+        modalData = this.props.data;
+        modalData.docType = 'post';
+        buttonType = '+Save';
+        editButton = null;
+      }
+
       if (this.props.data.thumbnail.includes('https')) {
-        thumbnail = this.props.data.thumbnail
+        thumbnail = this.props.data.thumbnail;
       }
 
       return (
@@ -56,6 +70,7 @@ class FullPost extends React.Component {
             <div className='post-header-container'>
               <div className='post-author'>Posted by {this.props.data.author}</div>
                <p className='save-button' id='full' onClick={() => this.props.setUpModal(modalData, buttonType)}>{buttonType}</p>
+               {editButton}
             </div>
             <div className='post-title'>{this.props.data.title}</div>
             <div className='post-text'>{this.props.data.selftext}</div>
@@ -76,15 +91,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setUpModal: (modalData, type) => dispatch(setUpModal(modalData, type)),
-  // addFavorite: (post, user) => dispatch(addFavorite(post, user)),
-  // removeFavorite: (postId, user) => dispatch(removeFavorite(postId, user)),
+  setUpModal: (modalData, type) => dispatch(setUpModal(modalData, type))
 })
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(FullPost);
-
-
-
-
-// const favoriteButton = postId ? <p className='save-button' id='full' onClick={() => this.props.removeFavorite(postId, this.props.user)}>-Remove</p> : <p className='save-button' id='full' onClick={() => this.props.addFavorite(this.props.data, this.props.user).then()}>+Save</p>;
