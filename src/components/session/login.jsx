@@ -15,11 +15,11 @@ class Login extends React.Component {
   }
 
   render() {
-    const form = this.state.signup ? <SignupForm /> : <LoginForm />;
+    const form = this.state.signup ? <SignupForm formName={'Signup'}/> : <LoginForm formName={'Login'}/>;
     const message = this.state.signup ? 'Already a member? Login here.' : 'Not a member? Signup instead';
 
     return (
-      <div>
+      <div className='login'>
         {form}
         <div onClick={this.toggleState}>{message}</div>
       </div>

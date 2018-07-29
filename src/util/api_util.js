@@ -31,7 +31,7 @@ export const fetchSubReddits = (user) => {
   return $.ajax({
     method: 'GET',
     contentType: "application/json",
-    url: `http://localhost:3000/users/users/subreddits`,
+    url: `http://localhost:3000/subreddits`,
     headers: {'x-auth': user.token}
   })
 }

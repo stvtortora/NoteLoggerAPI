@@ -1,4 +1,5 @@
 import * as APIUtil from './../util/api_util';
+import {closeModal} from './modal_actions';
 
 export const RECEIVE_SUBREDDITS = 'RECEIVE_SUBREDDITS';
 export const ADD_SUBREDDIT = 'ADD_SUBREDDIT';
@@ -10,13 +11,13 @@ export const fetchSubReddits = (user) => dispatch => (
 )
 
 export const addFavorite = (post, user) => dispatch => (
-  APIUtil.addSubReddit(post, user).then((subReddit) => dispatch({type: ADD_SUBREDDIT, subReddit}))
+  APIUtil.addSubReddit(post, user).then((subReddit) => dispatch({type: ADD_SUBREDDIT, subReddit})).then(() => dispatch(closeModal()))
 )
 
 export const removeFavorite = (postId, user) => dispatch => (
-  APIUtil.removeSubReddit(postId, user).then(() => dispatch({type: REMOVE_SUBREDDIT, postId}))
+  APIUtil.removeSubReddit(postId, user).then(() => dispatch({type: REMOVE_SUBREDDIT, postId})).then(() => dispatch(closeModal()))
 )
 
-export const updateCurrentPost = permalink => ({
-  type: UPDATE_CURRENT_POST, permalink
+export const updateCurrentPost = data => ({
+  type: UPDATE_CURRENT_POST, data
 })

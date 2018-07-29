@@ -7,6 +7,34 @@
  padding-bottom: 100px;
 }
 
+.modal-background {
+   position: fixed;
+   top: 0;
+   bottom: 0;
+   right: 0;
+   left: 0;
+   background: rgba(0, 0, 0, 0.1);
+   z-index: 10;
+ }
+
+ .modal-child {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+ }
+
+ .document-handler {
+   height: 300px;
+   width: 500px;
+   padding: 10px;
+   margin: 10px;
+   border: none;
+   border-radius: 10px;
+   box-shadow: 0 1px 1px 1px rgba(16,126,244,1);
+   background: #f4f4f4;
+ }
+
 header {
   display: flex;
   flex-direction: row;
@@ -18,12 +46,23 @@ header {
    display: inline-block;
  }
 
- .menu-display {
+ /* .menu-display-wrapper {
    width: 35px;
    height: 5px;
-   background-color: black;
+   background-color: #107ef4;
+   margin: 6px 0;
+ } */
+
+ .menu-display {
+   width: 35px;
+   height: 5px;;
+   background-color: #107ef4;
    margin: 6px 0;
  }
+
+ /* .menu-display-wrapper:hover {
+   background-color: #9bb3c6;
+ } */
 
  .menu:hover .menu-dropdown {
    display: block;
@@ -32,13 +71,13 @@ header {
  .menu-dropdown {
    display: none;
    position: absolute;
-   right: -5px;
+   right: -48px;
    background-color: white;
    padding: 5px 15px 5px 15px;
  }
 
  .menu-option:hover {
-   color: #ff6000;
+   color: #107ef4;
    cursor: pointer;
  }
 
@@ -46,6 +85,48 @@ header {
   height: 30px;
   width: auto;
   margin: 25px 0px 0px 40px;
+}
+
+.login {
+  display: block;
+  text-align: center;
+}
+
+.login > div {
+  margin: 20px;
+}
+
+.session-form {
+  display: block;
+}
+
+.form-field > input {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 30px;
+  margin: auto;
+  margin-bottom: 20px;
+  font-size: 20px;
+  outline: none;
+}
+
+.session-form > button {
+  color: white;
+  border: 1px solid #107ef4;
+  background-color: #107ef4;
+  padding: 7px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: lighter;
+  margin: 5px;
+  outline: none;
+}
+
+.session-form > button:hover {
+  cursor: pointer;
+  background-color: #9bb3c6;
+  color: black;
 }
 
 .content {
@@ -72,8 +153,8 @@ header {
 
 .search > button {
   color: white;
-  border: 1px solid #ff6000;
-  background-color: #ff6000;
+  border: 1px solid #107ef4;
+  background-color: #107ef4;
   padding: 7px;
   border-radius: 4px;
   font-size: 16px;
@@ -111,7 +192,7 @@ header {
   margin: 10px;
   border: none;
   border-radius: 10px;
-  box-shadow: 0 1px 1px 1px rgba(255,96,0,1);
+  box-shadow: 0 1px 1px 1px rgba(16,126,244,1);
   overflow: hidden;
 }
 
@@ -135,6 +216,26 @@ header {
   font-size: 12px;
 }
 
+.save-button {
+  color: white;
+  border: 1px solid #107ef4;
+  background-color: #107ef4;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: lighter;
+  margin: 3px;
+  outline: none;
+  width: 60px;
+  text-align: center;
+}
+
+.save-button:hover {
+  cursor: pointer;
+  background-color: #9bb3c6;
+  color: black;
+}
+
 .author-name {
   border-bottom: 1px solid #DCE0E6;
 }
@@ -144,7 +245,7 @@ header {
 }
 
 i {
-  border: solid #ff6000;
+  border: solid #107ef4;
   border-width: 0 6px 6px 0;
   display: inline-block;
   padding: 15px;
@@ -169,9 +270,36 @@ i:hover {
 
 .full-post {
   display:block;
-  width: 1000px;
+  width: 850px;
   margin-left: auto;
   margin-right:auto;
+  margin-top: 20px;
+}
+
+.post-author{
+  font-size: 13px;
+  margin: 8px;
+}
+
+.post-header-container {
+  display: flex;
+  flex-direction: row;
+}
+
+#full {
+ position: relative;
+ top: 0px;
+ font-size: 12px;
+ height: 24px;
+}
+
+.post-title {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.post-text {
+  margin-top: 20px;
 }
 
 .comment-author {

@@ -11,15 +11,16 @@ class Menu extends React.Component {
 
   handleLogout = () => {
     this.props.logout(this.props.user).then(() => {
-      this.props.history.push('./');
+      this.props.history.push('/');
     });
   }
 
-  // handleRedirect = (path) => {
-  //   () => {
-  //     this.props.history.push(path)
-  //   }
-  // }
+  handleShowFavorites = () => {
+    this.props.showFavorites()
+    if (this.props.history[this.props.history.length - 1] !== '/search') {
+      this.props.history.push('/search');
+    }
+  }
 
   render () {
     if (this.props.user) {
@@ -29,7 +30,7 @@ class Menu extends React.Component {
           <div className='menu-display'></div>
           <div className='menu-display'></div>
           <div className='menu-dropdown'>
-            <p className='menu-option' onClick={() => this.props.showFavorites()}>Favorite Posts</p>
+            <p className='menu-option' onClick={this.handleShowFavorites}>Saved Posts</p>
             <p className='menu-option' onClick={this.handleLogout}>Logout</p>
           </div>
         </div>

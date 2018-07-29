@@ -17,7 +17,8 @@ class Content extends Component {
   }
 
   componentDidMount () {
-    fetchSubReddits(this.props.user);
+    console.log(this.props.user)
+    this.props.fetchSubReddits(this.props.user);
   }
 
   filterResults = (results) => {

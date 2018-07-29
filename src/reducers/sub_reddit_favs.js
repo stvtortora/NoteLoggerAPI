@@ -6,10 +6,14 @@ export default (state = {}, action) => {
   let newState;
   switch (action.type) {
     case RECEIVE_SUBREDDITS:
-      return action.subReddits.reduce((newState, subReddit) => {
+    console.log(action.type)
+    debugger
+      const nextState = action.favorites.subreddits.reduce((newState, subReddit) => {
         newState[subReddit._id] = subReddit;
         return newState;
-      }, {})
+      }, {});
+      console.log(nextState);
+      return nextState;
     case ADD_SUBREDDIT:
       newState = merge({}, state);
       newState[action.subReddit._id] = action.subReddit;

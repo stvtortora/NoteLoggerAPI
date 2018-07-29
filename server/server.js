@@ -44,6 +44,7 @@ app.post('/subreddits', authenticate, (req, res) => {
 });
 
 app.get('/subreddits', authenticate, (req, res) => {
+  console.log('hello!!!!')
   SubReddit.find({
     userId: req.user._id
   }).then((subreddits) => {
