@@ -23,16 +23,25 @@ class Post extends React.Component {
 
   render () {
     const thumbnail = this.props.data.thumbnail && this.props.data.thumbnail.includes('https') ? this.props.data.thumbnail : RedditIcon;
-    const buttonType = this.props.postId ? '-Remove' : '+Save';
-    const modalData = this.props.postId ? this.props.postId : this.props.data;
-
+    let buttonType = '-Remove';
+    let editButton =  <p className='save-button' onClick={() => this.props.setUpModal(this.props.data, 'Edit')}>Edit</p>
+    let modalData = this.props.postId;
+    if (!this.props.postId) {
+      modalData = this.props.data;
+      modalData.docType = 'post';
+      buttonType = '+Save';
+      editButton = null
+    }
 
     return (
      <div className='post'>
        <img src={ thumbnail } alt='Cannot Display'/>
        <div>
          <h2 onClick={this.handleViewPost}>{this.props.data.title}</h2>
-         <p className='save-button' onClick={() => this.props.setUpModal(modalData, buttonType)}>{buttonType}</p>
+         <div>
+           <p className='save-button' onClick={() => this.props.setUpModal(modalData, buttonType)}>{buttonType}</p>
+           {editButton}
+         </div>
          <p className='author-name' ><strong>Author:</strong> { this.props.data.author }</p>
          <p className='post-text' >{this.props.data.selftext}</p>
        </div>
@@ -46,16 +55,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  // addFavorite: (post, user) => dispatch(addFavorite(post, user)),
-  // removeFavorite: (postId, user) => dispatch(removeFavorite(postId, user)),
   setUpModal: (modalData, type) => dispatch(setUpModal(modalData, type)),
   updateCurrentPost: (data) => dispatch(updateCurrentPost(data))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Post));
-
-
-
-
-
-// const favoriteButton = this.props.postId ? <p className='save-button' onClick={() => this.props.removeFavorite(this.props.postId, this.props.user)}>-Remove</p> : <p className='save-button' onClick={() => this.props.addFavorite(this.props.data, this.props.user)}>+Save</p>;

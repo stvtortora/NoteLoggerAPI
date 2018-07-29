@@ -41,6 +41,9 @@ class ResultsFeed extends React.Component {
         const postId = Object.keys(this.props.favorites).find(id => {
           return this.props.favorites[id].title === postData.title;
         })
+        if (postId) {
+          postData = this.props.favorites[postId]
+        }
         return <Post key={i} data={postData} postId={postId}/>
       });
 

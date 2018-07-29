@@ -47,6 +47,17 @@ export const addSubReddit = (subReddit, user) => {
   })
 }
 
+export const updateDocument = (subreddit, user) => {
+  return $.ajax({
+    method: 'PATCH',
+    contentType: "application/json",
+    dataType: 'json',
+    url: `http://localhost:3000/subreddits/${subreddit._id}`,
+    data: JSON.stringify(subreddit),
+    headers: {'X-Auth': user.token}
+  })
+}
+
 export const removeSubReddit = (postId, user) => {
   return $.ajax({
     method: 'DELETE',

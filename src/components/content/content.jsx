@@ -12,13 +12,21 @@ class Content extends Component {
     this.state = {
       input: '',
       searchResults: [],
-      errorMessage: ''
+      errorMessage: '',
+      subRedditTitle: ''
     }
   }
 
   componentDidMount () {
-    console.log(this.props.user)
     this.props.fetchSubReddits(this.props.user);
+  }
+
+  componentDidUpdate (prevProps) {
+    if (prevProps.showFavorites !== this.props.showFavorites) {
+      this.setState({
+        errorMessage: ''
+      })
+    }
   }
 
   filterResults = (results) => {
@@ -42,6 +50,7 @@ class Content extends Component {
   onSubmit = () => {
     this.retrieveData(this.state.input).done(res => {
       this.setState({
+        subRedditTitle: this.state.input,
         searchResults: this.filterResults(res),
         errorMessage: ''
       });
@@ -66,11 +75,19 @@ class Content extends Component {
   render() {
     const feedData = this.props.showFavorites ? this.props.favorites : this.state.searchResults;
 
+    let displayTitle;
+    if (this.props.showFavorites) {
+      displayTitle = Object.keys(this.props.favorites).length ? 'Saved Posts' : "You haven't saved any posts yet.";
+    } else {
+      displayTitle = this.state.subRedditTitle;
+    }
+
     return (
       <div className="content">
         <Search onInputChange={ this.onInputChange } onSubmit={ this.onSubmit }/>
-        <p>{ this.state.errorMessage }</p>
-        <ResultsFeed searchResults={ feedData }/>
+        <p>{this.state.errorMessage}</p>
+        <p>{ displayTitle }</p>
+        <ResultsFeed searchResults={ feedData } />
       </div>
     );
   }
