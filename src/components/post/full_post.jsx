@@ -1,6 +1,5 @@
 import React from 'react';
 import Comment from './comment';
-// import { addFavorite, removeFavorite, updateCurrentPost } from './../../actions/sub_reddit_actions';
 import { setUpModal } from './../../actions/modal_actions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -39,38 +38,30 @@ class FullPost extends React.Component {
   }
 
   render () {
-    let thumbnail;
     if (this.state.comments) {
       const postId = Object.keys(this.props.favorites).find(id => {
         return this.props.favorites[id].title === this.props.data.title;
       })
-
-      let buttonType;
-      let editButton;
-      let modalData;
-
+      let buttonType = '+Save';
+      let modalData = this.props.data;
+      let memo;
       if (postId) {
         buttonType = '-Remove';
         modalData = postId;
-        editButton = <p className='save-button' onClick={() => this.props.setUpModal(this.props.favorites[postId], 'Edit')}>Edit</p>
-      } else {
-        modalData = this.props.data;
-        modalData.docType = 'post';
-        buttonType = '+Save';
-        editButton = null;
+        memo = <div onClick={() => this.props.setUpModal(this.props.favorites[postId], 'Edit')}>{this.props.favorites[postId].memo}</div>;
       }
-
+      let thumbnail;
       if (this.props.data.thumbnail.includes('https')) {
-        thumbnail = this.props.data.thumbnail;
+        thumbnail = this.props.data.thumbnail
       }
 
       return (
         <div className='post-wrapper'>
           <div className='full-post'>
             <div className='post-header-container'>
+              {memo}
               <div className='post-author'>Posted by {this.props.data.author}</div>
                <p className='save-button' id='full' onClick={() => this.props.setUpModal(modalData, buttonType)}>{buttonType}</p>
-               {editButton}
             </div>
             <div className='post-title'>{this.props.data.title}</div>
             <div className='post-text'>{this.props.data.selftext}</div>

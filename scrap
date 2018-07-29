@@ -1,0 +1,19 @@
+// if (this.state.comments) {
+//   const postId = Object.keys(this.props.favorites).find(id => {
+//     return this.props.favorites[id].title === this.props.data.title;
+//   })
+//
+//   let buttonType;
+//   let editButton;
+//   let modalData;
+//
+//   if (postId) {
+//     buttonType = '-Remove';
+//     modalData = postId;
+//     editButton = <p className='save-button' onClick={() => this.props.setUpModal(this.props.favorites[postId], 'Edit')}>Edit</p>
+//   } else {
+//     modalData = this.props.data;
+//     modalData.docType = 'post';
+//     buttonType = '+Save';
+//     editButton = null;
+//   }
