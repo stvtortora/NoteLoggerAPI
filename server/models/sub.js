@@ -1,18 +1,9 @@
 const mongoose = require('mongoose');
 
-var SubReddit = mongoose.model('Note', {
-  selftext: {
-    type: String
-  },
+var Sub = mongoose.model('Sub', {
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true
-  },
-  author: {
-    type: String
-  },
-  thumbnail: {
-    type: String
   },
   title: {
     type: String
@@ -22,10 +13,7 @@ var SubReddit = mongoose.model('Note', {
   },
   memo: {
     type: String
-  },
-  docType: {
-    type: String
   }
 })
 
-module.exports = {SubReddit};
+module.exports = {Sub};

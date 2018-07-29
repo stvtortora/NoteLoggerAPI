@@ -1,6 +1,7 @@
 import React from 'react';
 import Comment from './comment';
-import { addFavorite, removeFavorite, updateCurrentPost } from './../../actions/sub_reddit_actions';
+// import { addFavorite, removeFavorite, updateCurrentPost } from './../../actions/sub_reddit_actions';
+import { setUpModal } from './../../actions/modal_actions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import $ from 'jquery';
@@ -43,7 +44,8 @@ class FullPost extends React.Component {
       const postId = Object.keys(this.props.favorites).find(id => {
         return this.props.favorites[id].title === this.props.data.title;
       })
-      const favoriteButton = postId ? <p className='save-button' id='full' onClick={() => this.props.removeFavorite(postId, this.props.user)}>-Remove</p> : <p className='save-button' id='full' onClick={() => this.props.addFavorite(this.props.data, this.props.user).then()}>+Save</p>;
+      const buttonType = postId ? '-Remove' : '+Save';
+      const modalData = postId ? postId : this.props.data;
       if (this.props.data.thumbnail.includes('https')) {
         thumbnail = this.props.data.thumbnail
       }
@@ -53,7 +55,7 @@ class FullPost extends React.Component {
           <div className='full-post'>
             <div className='post-header-container'>
               <div className='post-author'>Posted by {this.props.data.author}</div>
-              {favoriteButton}
+               <p className='save-button' id='full' onClick={() => this.props.setUpModal(modalData, buttonType)}>{buttonType}</p>
             </div>
             <div className='post-title'>{this.props.data.title}</div>
             <div className='post-text'>{this.props.data.selftext}</div>
@@ -74,9 +76,15 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  addFavorite: (post, user) => dispatch(addFavorite(post, user)),
-  removeFavorite: (postId, user) => dispatch(removeFavorite(postId, user)),
+  setUpModal: (modalData, type) => dispatch(setUpModal(modalData, type)),
+  // addFavorite: (post, user) => dispatch(addFavorite(post, user)),
+  // removeFavorite: (postId, user) => dispatch(removeFavorite(postId, user)),
 })
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(FullPost);
+
+
+
+
+// const favoriteButton = postId ? <p className='save-button' id='full' onClick={() => this.props.removeFavorite(postId, this.props.user)}>-Remove</p> : <p className='save-button' id='full' onClick={() => this.props.addFavorite(this.props.data, this.props.user).then()}>+Save</p>;
