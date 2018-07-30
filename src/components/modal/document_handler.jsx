@@ -23,19 +23,20 @@ class DocumentHandler extends React.Component {
   }
 
   render () {
-    console.log(this.props.type)
     let memoBox = <textarea className='memo-box' value={this.state.memo} onChange={this.handleChange}></textarea>;
     let message;
+    let klass = '';
     if (this.props.type === '+Save') {
       message = <div className='document-handler-message'>Write a private memo before saving.<br/>Do not worry, you can change this later!</div>
     } else if (this.props.type === '-Remove'){
       message = <div className='document-handler-message'>Are you sure you want to unsave this post?</div>
       memoBox = null;
+      klass = 'remove'
     } else {
       message = <div className='document-handler-message'>Edit your private memo below.</div>
     }
     return (
-      <div className='document-handler'>
+      <div className='document-handler' id={klass}>
         {message}
         {memoBox}
         <div className='document-handler-button' onClick={this.handleSubmit}>{this.props.type}</div>

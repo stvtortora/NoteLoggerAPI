@@ -38,6 +38,11 @@
    align-items: center;
  }
 
+ #remove {
+   height: auto;
+   width: 450px;
+ }
+
  .memo-box {
    height: 80%;
    width: 90%;
@@ -129,6 +134,10 @@ header {
 .login {
   display: block;
   text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .login > div {
@@ -306,6 +315,35 @@ i:hover {
 .previous {
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
+}
+.memo-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.memo-display {
+  font-style: italic;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  overflow-wrap: break-word;
+}
+
+#edit-button {
+  margin-left: 5px;
+  position: relative;
+  top: -5px;
+  font-size: 12px;
+}
+
+.memo-wrapper > {
+  display: flex;
+  flex-direction: row;
+  width: 190px;
+}
+
+.memo-wrapper > span {
+  display:flex;
+  flex-direction:row;
 }
 
 .full-post {

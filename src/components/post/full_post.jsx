@@ -39,18 +39,28 @@ class FullPost extends React.Component {
 
   render () {
     if (this.state.comments) {
-      const postId = Object.keys(this.props.favorites).find(id => {
-        return this.props.favorites[id].title === this.props.data.title;
-      })
       let buttonType = '+Save';
       let modalData = this.props.data;
       let memo;
+      let thumbnail;
+      const postId = Object.keys(this.props.favorites).find(id => {
+        return this.props.favorites[id].title === this.props.data.title;
+      })
       if (postId) {
         buttonType = '-Remove';
         modalData = postId;
-        memo = <div onClick={() => this.props.setUpModal(this.props.favorites[postId], 'Edit')}>{this.props.favorites[postId].memo}</div>;
+        const editButton = <p className='save-button' id='edit-button' onClick={() => this.props.setUpModal(this.props.favorites[postId], 'Edit')}>Edit</p>
+        memo = (
+          <div className='memo-wrapper'>
+            <span>
+              <div>Private memo</div>
+              {editButton}
+            </span>
+
+            <div onClick={() => this.props.setUpModal(this.props.favorites[postId], 'Edit')} className='memo-display'>{this.props.favorites[postId].memo}</div>
+          </div>
+        );
       }
-      let thumbnail;
       if (this.props.data.thumbnail.includes('https')) {
         thumbnail = this.props.data.thumbnail
       }
@@ -58,8 +68,8 @@ class FullPost extends React.Component {
       return (
         <div className='post-wrapper'>
           <div className='full-post'>
-            <div className='post-header-container'>
               {memo}
+            <div className='post-header-container'>
               <div className='post-author'>Posted by {this.props.data.author}</div>
                <p className='save-button' id='full' onClick={() => this.props.setUpModal(modalData, buttonType)}>{buttonType}</p>
             </div>
