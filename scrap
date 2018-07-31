@@ -17,3 +17,5 @@
 //     buttonType = '+Save';
 //     editButton = null;
 //   }
+
+react-scripts start

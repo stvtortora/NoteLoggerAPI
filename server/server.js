@@ -23,11 +23,11 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('/api/', (req, res) => {
+app.get('/', (req, res) => {
   res.send({"message": "it works"});
 })
 
-app.post('/api/subreddits', authenticate, (req, res) => {
+app.post('/subreddits', authenticate, (req, res) => {
   const subreddit = new SubReddit({
     selftext: req.body.selftext,
     userId: req.user._id,
@@ -46,7 +46,7 @@ app.post('/api/subreddits', authenticate, (req, res) => {
   });
 });
 
-app.get('/api/subreddits', authenticate, (req, res) => {
+app.get('/subreddits', authenticate, (req, res) => {
   console.log('hello!!!!')
   SubReddit.find({
     userId: req.user._id
@@ -57,7 +57,7 @@ app.get('/api/subreddits', authenticate, (req, res) => {
   });
 });
 
-app.patch('/api/subreddits/:id', authenticate, (req, res) => {
+app.patch('/subreddits/:id', authenticate, (req, res) => {
   const id = req.params.id;
   const body = _.pick(req.body, ['memo']);
    if(!ObjectID.isValid(id)) {
@@ -74,7 +74,7 @@ app.patch('/api/subreddits/:id', authenticate, (req, res) => {
 })
 
 
-app.delete('/api/subreddits/:id', authenticate, (req, res) => {
+app.delete('/subreddits/:id', authenticate, (req, res) => {
   const id = req.params.id;
 
   if(!ObjectID.isValid(id)) {
@@ -94,7 +94,7 @@ app.delete('/api/subreddits/:id', authenticate, (req, res) => {
   });
 });
 
-app.post('/api/users', (req, res) => {
+app.post('/users', (req, res) => {
   const userParams = _.pick(req.body, ['username', 'password']);
   const user = new User(userParams);
 
@@ -109,11 +109,11 @@ app.post('/api/users', (req, res) => {
   })
 });
 
-app.get('/api/users/current', authenticate, (req, res) => {
+app.get('/users/current', authenticate, (req, res) => {
   res.send(req.user);
 });
 
-app.post('/api/users/login', (req, res) => {
+app.post('/users/login', (req, res) => {
   const userParams = _.pick(req.body, ['username', 'password']);
 
   User.findByCredentials(userParams.username, userParams.password).then(user => {
@@ -127,7 +127,7 @@ app.post('/api/users/login', (req, res) => {
   });
 })
 
-app.delete('/api/users/current/token', authenticate, (req, res) => {
+app.delete('/users/current/token', authenticate, (req, res) => {
   req.user.removeToken(req.token).then(() => {
     res.status(200).send();
   }, () => {
