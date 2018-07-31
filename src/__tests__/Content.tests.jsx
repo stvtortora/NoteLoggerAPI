@@ -8,15 +8,10 @@ import { shallow } from 'enzyme';
 
 configure({ adapter: new Adapter() });
 
-const content = shallow(
-  <Content {...props}/>
-)
 
-beforeEach(() => {
-  props = {
-    fetchSubReddits: jest.fn(),
-  };
-});
+const content = shallow(
+  <Content />
+)
 
 describe('<Content>', () => {
 

@@ -12,42 +12,24 @@ beforeEach(generateSubReddits);
 
 describe('POST /subreddits', () => {
   it('should create a new subreddit', (done) => {
-    const text = 'Test subreddit text';
+    const selftext = 'Test subreddit text';
 
     request(app)
       .post('/subreddits')
       .set('x-auth', users[0].tokens[0].token)
-      .send({text})
+      .send({selftext})
       .expect(200)
       .expect((res) => {
-        expect(res.body.text).toBe(text);
+        expect(res.body.selftext).toBe(selftext);
     })
     .end((err, res) => {
       if(err) {
         return done(err);
       }
 
-      SubReddit.find({text}).then((subreddits) => {
+      SubReddit.find({selftext}).then((subreddits) => {
         expect(subreddits.length).toBe(1);
-        expect(subreddits[0].text).toBe(text);
-        done();
-      }).catch((e) => done(e));
-    });
-  });
-
-  it('should not create subreddit with invalid body data', (done) => {
-    request(app)
-      .post('/subreddits')
-      .set('x-auth', users[0].tokens[0].token)
-      .send({})
-      .expect(400)
-    .end((err, res) => {
-      if(err) {
-        return done(err);
-      }
-
-      SubReddit.find().then((subreddits) => {
-        expect(subreddits.length).toBe(2);
+        expect(subreddits[0].selftext).toBe(selftext);
         done();
       }).catch((e) => done(e));
     });
@@ -109,7 +91,6 @@ describe('DELETE /subreddits/:id', () => {
       }).catch((e) => done(e));
     })
   })
-
 
   it('should return 404 if subreddit is not found', done => {
     const outSideId = new ObjectID().toHexString();

@@ -6,6 +6,7 @@ import Footer from '../components/footer';
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { shallow } from 'enzyme';
+import store from './../store/store';
 
 configure({ adapter: new Adapter() });
 

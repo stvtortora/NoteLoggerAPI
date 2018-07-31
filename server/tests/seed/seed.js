@@ -37,11 +37,11 @@ const generateUsers = (done) => {
 
 const subreddits = [{
   _id: new ObjectID(),
-  text: 'test subreddit 1',
+  selftext: 'test subreddit 1',
   userId: testUserOneId
 }, {
   _id: new ObjectID(),
-  text: 'test subreddit 2',
+  selftext: 'test subreddit 2',
   userId: testUserTwoId
 }];
 

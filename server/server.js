@@ -94,47 +94,6 @@ app.delete('/subreddits/:id', authenticate, (req, res) => {
   });
 });
 
-// app.post('/subs', authenticate, (req, res) => {
-//   const sub = new Sub({
-//     userId: req.user._id,
-//     title: req.body.title,
-//     permalink: req.body.permalink,
-//     memo: req.body.memo
-//   });
-//
-//   sub.save().then((doc) => {
-//     res.send(doc);
-//   }, (e) => {
-//     res.status(400).send(e);
-//   });
-// });
-//
-// app.get('/subs', authenticate, (req, res) => {
-//   Sub.find({
-//     userId: req.user._id
-//   }).then((subs) => {
-//     res.send({subs});
-//   }, (e) =>{
-//     res.status(400).send(e);
-//   });
-// });
-//
-// app.patch('/subs/:id', authenticate, (req, res) => {
-//   const id = req.params.id;
-//   const body = _.pick(req.body, ['memo']);
-//    if(!ObjectID.isValid(id)) {
-//     return res.status(404).send();
-//   }
-//    SubReddit.findOneAndUpdate({_id: id, userId: req.user._id}, {$set: body}, {new: true}).then(subreddit => {
-//     if(!subreddit) {
-//       return res.status(404).send();
-//     }
-//      res.send({subreddit});
-//   }).catch((e) => {
-//     res.status(400).send();
-//   })
-// })
-
 app.post('/users', (req, res) => {
   const userParams = _.pick(req.body, ['username', 'password']);
   const user = new User(userParams);
