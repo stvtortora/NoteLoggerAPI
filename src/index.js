@@ -15,4 +15,4 @@ store.subscribe(() => {
 })
 window.getState = store.getState;
 ReactDOM.render(<App store={store}/>, document.getElementById('root'));
-registerServiceWorker();
+// registerServiceWorker();
