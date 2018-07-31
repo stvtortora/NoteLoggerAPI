@@ -4,7 +4,7 @@ export const signup = (user) => {
   return $.ajax({
     method: 'POST',
     contentType: "application/json",
-    url: `/users`,
+    url: `/api/users`,
     data: JSON.stringify(user)
   })
 }
@@ -13,7 +13,7 @@ export const logIn = (user) => {
   return $.ajax({
     method: 'POST',
     contentType: "application/json",
-    url: `/users/login`,
+    url: `/api/users/login`,
     data: JSON.stringify(user)
   })
 }
@@ -22,7 +22,7 @@ export const logOut = (user) => {
   return $.ajax({
     method: 'DELETE',
     contentType: "application/json",
-    url: `/users/current/token`,
+    url: `/api/users/current/token`,
     headers: {'x-auth': user.token}
   })
 }
@@ -31,7 +31,7 @@ export const fetchSubReddits = (user) => {
   return $.ajax({
     method: 'GET',
     contentType: "application/json",
-    url: `/subreddits`,
+    url: `/api/subreddits`,
     headers: {'x-auth': user.token}
   })
 }
@@ -41,7 +41,7 @@ export const addSubReddit = (subReddit, user) => {
     method: 'POST',
     contentType: "application/json",
     dataType: 'json',
-    url: `/subreddits`,
+    url: `/api/subreddits`,
     data: JSON.stringify(subReddit),
     headers: {'X-Auth': user.token}
   })
@@ -52,7 +52,7 @@ export const updateDocument = (subreddit, user) => {
     method: 'PATCH',
     contentType: "application/json",
     dataType: 'json',
-    url: `/subreddits/${subreddit._id}`,
+    url: `/api/subreddits/${subreddit._id}`,
     data: JSON.stringify(subreddit),
     headers: {'X-Auth': user.token}
   })
@@ -62,7 +62,7 @@ export const removeSubReddit = (postId, user) => {
   return $.ajax({
     method: 'DELETE',
     contentType: "application/json",
-    url: `/subreddits/${postId}`,
+    url: `/api/subreddits/${postId}`,
     headers: {'x-auth': user.token}
   })
 }
