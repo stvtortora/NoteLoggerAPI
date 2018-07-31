@@ -1,5 +1,5 @@
 import React from 'react';
-import Post from '../components/content/post';
+import {Post} from '../components/content/post';
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { shallow } from 'enzyme';
@@ -35,7 +35,7 @@ describe('<Post>', () => {
     expect(post.find('.author-name')
       .render()
       .text())
-      .toEqual(props.data.author);
+      .toEqual(`Author: ${props.data.author}`);
   })
 
   it('displays post text', () => {

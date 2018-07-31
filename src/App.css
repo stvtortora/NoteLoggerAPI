@@ -138,6 +138,10 @@ header {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  border-radius: 10px;
+  box-shadow: 0 1px 1px 1px rgba(16,126,244,1);
+  background: radial-gradient(#107ef4, #00d0ff);
+  padding: 25px;
 }
 
 .login > div {
@@ -242,7 +246,7 @@ header {
   border-radius: 10px;
   box-shadow: 0 1px 1px 1px rgba(16,126,244,1);
   overflow: hidden;
-  background: linear-gradient(#107ef4, #00d0ff);
+  background: radial-gradient(#107ef4, #00d0ff);
 }
 
 .post > img {
@@ -319,6 +323,12 @@ i:hover {
 .memo-wrapper {
   display: flex;
   flex-direction: column;
+  border-radius: 10px;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 1px 1px rgba(16,126,244,1);
+  overflow: hidden;
+  background: linear-gradient(#107ef4, #00d0ff);
 }
 
 .memo-display {
@@ -344,6 +354,9 @@ i:hover {
 .memo-wrapper > span {
   display:flex;
   flex-direction:row;
+  justify-content: space-between;
+  border-bottom: 1px solid #DCE0E6;
+  text-transform:uppercase;
 }
 
 .full-post {

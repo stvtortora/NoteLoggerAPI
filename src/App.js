@@ -9,7 +9,7 @@ import Footer from './components/footer';
 import FullPost from './components/post/full_post';
 import Modal from './components/modal/modal';
 
-const App = ({store}) => {
+export const App = ({store}) => {
   return (
     <Provider store={store}>
       <HashRouter>

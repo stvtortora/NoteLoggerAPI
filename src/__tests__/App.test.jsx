@@ -1,7 +1,7 @@
 import React from 'react';
-import App from '../App.js';
-import Content from '../components/content/content';
-import Header from '../components/header';
+import {App} from '../App.js';
+import {HashRouter, Route} from 'react-router-dom';
+import Header from '../components/header/header';
 import Footer from '../components/footer';
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -18,8 +18,8 @@ describe('<App>', () => {
     expect(app.find(Header).length).toBe(1);
   })
 
-  it('has contenent', () => {
-    expect(app.find(Content).length).toBe(1);
+  it('has a router', () => {
+    expect(app.find(HashRouter).length).toBe(1);
   })
 
   it('has a footer', () => {

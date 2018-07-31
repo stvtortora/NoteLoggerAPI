@@ -1,11 +1,12 @@
 import React from 'react';
-import ResultsFeed from '../components/content/resultsFeed';
+import {ResultsFeed} from '../components/content/resultsFeed';
 import Post from '../components/content/post';
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { shallow } from 'enzyme';
 
 configure({ adapter: new Adapter() });
+
 
 describe('<ResultsFeed>', () => {
   let props;
@@ -22,7 +23,9 @@ describe('<ResultsFeed>', () => {
 
   beforeEach(() => {
     props = {
-      searchResults: []
+      searchResults: [],
+      favorites: {},
+      user: {}
     };
 
     mountedResultsFeed = undefined;

@@ -1,5 +1,5 @@
 import React from 'react';
-import Content from '../components/content/content';
+import {Content} from '../components/content/content';
 import Search from '../components/content/search';
 import ResultsFeed from '../components/content/resultsFeed';
 import { configure } from 'enzyme';
@@ -8,10 +8,17 @@ import { shallow } from 'enzyme';
 
 configure({ adapter: new Adapter() });
 
+const content = shallow(
+  <Content {...props}/>
+)
+
+beforeEach(() => {
+  props = {
+    fetchSubReddits: jest.fn(),
+  };
+});
+
 describe('<Content>', () => {
-  let content = shallow(
-    <Content />
-  )
 
   it('renders Search', () => {
     expect(content.find(Search).length).toBe(1);

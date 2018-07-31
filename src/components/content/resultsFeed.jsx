@@ -3,7 +3,7 @@ import Post from './post';
 import { connect } from 'react-redux';
 
 
-class ResultsFeed extends React.Component {
+export class ResultsFeed extends React.Component {
   constructor(props) {
     super(props);
 
@@ -69,6 +69,5 @@ const mapStateToProps = state => ({
   favorites: state.subRedditFavs,
   user: state.session
 })
-
 
 export default connect(mapStateToProps)(ResultsFeed);

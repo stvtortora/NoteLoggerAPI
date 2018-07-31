@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 import { setUpModal } from './../../actions/modal_actions';
 import { updateCurrentPost } from './../../actions/sub_reddit_actions';
 
-class Post extends React.Component {
+export class Post extends React.Component {
   constructor (props) {
     super(props);
   }

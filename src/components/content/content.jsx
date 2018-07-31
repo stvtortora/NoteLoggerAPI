@@ -6,7 +6,7 @@ import { fetchSubReddits } from './../../actions/sub_reddit_actions';
 import { showSearchResults } from './../../actions/ui_actions';
 import $ from 'jquery';
 
-class Content extends Component {
+export class Content extends Component {
   constructor(props) {
     super(props);
     this.state = {
