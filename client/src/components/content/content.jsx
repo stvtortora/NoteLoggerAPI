@@ -28,6 +28,12 @@ export class Content extends Component {
       })
     }
   }
+  
+  onInputChange = (event) => {
+    this.setState({
+      input: event.target.value
+    });
+  }
 
   filterResults = (results) => {
     return results.data.children.map(post => {
@@ -41,11 +47,6 @@ export class Content extends Component {
     });
   }
 
-  onInputChange = (event) => {
-    this.setState({
-      input: event.target.value
-    });
-  }
 
   onSubmit = () => {
     this.retrieveData(this.state.input).done(res => {

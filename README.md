@@ -96,35 +96,202 @@
 
 ## Testing Express Routes
 
-TDD was also used on the backend to build out express routes. Below is the GET method  of the `/subreddits` route, along with tests written with supertest.
+TDD was also used on the backend to build out express routes. Below is the DELETE method  of the `/subreddits` route, along with tests written with supertest.
+
+```javascript
+
+//delete method
+app.delete('/api/subreddits/:id', authenticate, (req, res) => {
+  const id = req.params.id;
+
+  if(!ObjectID.isValid(id)) {
+    return res.status(404).send();
+  }
+
+  SubReddit.findOneAndRemove({
+    _id: id,
+    userId: req.user._id
+  }).then(subreddit => {
+    if(!subreddit) {
+      return res.status(404).send();
+    }
+    res.send({subreddit})
+  }).catch((e) => {
+    res.status(400).send();
+  });
+});
+
+///tests
+describe('DELETE /subreddits/:id', () => {
+  it('should delete a single subreddit', (done) => {
+    const id = subreddits[1]._id.toHexString();
+
+    request(app)
+    .delete(`/subreddits/${id}`)
+    .set('x-auth', users[1].tokens[0].token)
+    .expect(200)
+    .expect((res) => {
+      expect(res.body.subreddit._id).toBe(id)
+    })
+    .end((err, res) => {
+      if(err){
+        return done(err);
+      }
+
+      SubReddit.findById(id).then((subreddit) => {
+        expect(subreddit).toBeFalsy();
+        done();
+      }).catch((e) => done(e));
+    })
+  })
+
+  it('should not delete a subreddit created by a different user', (done) => {
+    const id = subreddits[0]._id.toHexString();
+
+    request(app)
+    .delete(`/subreddits/${id}`)
+    .set('x-auth', users[1].tokens[0].token)
+    .expect(404)
+    .end((err, res) => {
+      if(err){
+        return done(err);
+      }
+
+      SubReddit.findById(id).then((subreddit) => {
+        expect(subreddit).toBeTruthy();
+        done();
+      }).catch((e) => done(e));
+    })
+  })
+
+  it('should return 404 if subreddit is not found', done => {
+    const outSideId = new ObjectID().toHexString();
+    request(app)
+    .delete(`/subreddits/${outSideId}`)
+    .set('x-auth', users[1].tokens[0].token)
+    .expect(404)
+    .end(done)
+  });
+
+  it('should return 404 for invalid ids', (done) => {
+    request(app)
+    .delete(`/subreddits/invalidId`)
+    .set('x-auth', users[1].tokens[0].token)
+    .expect(404)
+    .end(done)
+  });
+});
+```
+
 
 ## Securing Routes
 
-In order to prevent users from saving, updating, or editing posts that don't belong to them, it was necessary to secure express routes with JSON web tokens (jwt). Below are the methods for generating tokens and finding the user that matches the token sent from the client. The latter is used whenever a user signs in, and the former whenever a user makes a post, patch, or delete request.
+In order to prevent users from saving, updating, or editing posts that don't belong to them, it was necessary to secure express routes with JSON web tokens (jwt). Below are the methods for generating tokens and finding the user that matches the token sent from the client. The latter is used whenever a user signs in, and the former whenever a user makes a post, patch, or delete request.  
+
+```javascript
+UserSchema.methods.generateAuthToken = function () {
+  const access = "auth";
+  const token = jwt.sign({_id: this._id.toHexString(), access}, process.env.JWT_SECRET).toString();
+
+  this.tokens = this.tokens.concat([{access, token}]);
+
+  return this.save().then(() => {
+    return token;
+  })
+}
+
+UserSchema.statics.findByToken = function (token) {
+  let decoded;
+
+  try {
+    decoded = jwt.verify(token, process.env.JWT_SECRET);
+  } catch (e) {
+    return Promise.reject();
+  }
+
+  return this.findOne({
+    _id: decoded._id,
+    'tokens.token': token,
+    'tokens.access': 'auth'
+  });
+}
+
+UserSchema.methods.toJSON = function () {
+  return _.pick(this.toObject(), ['_id', 'username']);
+}
+
+UserSchema.methods.removeToken = function (token) {
+  return this.update({
+    $pull: {
+      tokens: {
+        token
+      }
+    }
+  })
+}
+```
 
 ## Retrieving and Parsing JSON from Reddit
 
 By appending any reddit url with `.json`, you can access the JSON data for that url. This application leverages this API to display subreddits and posts. Below is the code for retrieving and parsing subreddit information.  
 
+```javascript
+filterResults = (results) => {
+  return results.data.children.map(post => {
+    return Object.keys(post.data).reduce((postData, key) => {
+      if(["author", "title", "thumbnail", "selftext", "permalink"].includes(key)){
+        postData[key] = post.data[key];
+      }
 
+      return postData;
+    }, {});
+  });
+}
+
+
+onSubmit = () => {
+  this.retrieveData(this.state.input).done(res => {
+    this.setState({
+      subRedditTitle: this.state.input,
+      searchResults: this.filterResults(res),
+      errorMessage: ''
+    });
+    this.props.showSearchResults()
+  }).fail(() => {
+    this.setState({
+      errorMessage: 'Please enter the name of an existing subreddit.'
+    });
+  });
+}
+
+parseInput = (input) => {
+  return input.split(' ').join('');
+}
+
+retrieveData = (input) => {
+  return $.getJSON(`https://www.reddit.com/r/${this.parseInput(input)}.json`, res => {
+    return res;
+  });
+}
+```
 
 And here is the code for parsing post information:
-<!-- ## Technologies
 
+```javascript
+formatComments = (comments) => {
+  return comments.data.children.map(comment => {
+    let replies;
+    if (comment.data.replies && comment.data.replies !== '') {
+      replies = this.formatComments(comment.data.replies);
+    }
+    return <Comment author={comment.data.author} body={comment.data.body} replies={replies} />
+  })
+}
 
+retrieveData = () => {
+  return $.getJSON(`https://www.reddit.com${this.props.data.permalink}.json`, res => {
+    return res;
+  });
+}
 
-### React
-
-The subreddit browser is built primarily with React. One of the reasons that React is great for creating interactive web applications is that it allows for state management via JavaScript instead of in the DOM directly. It's also component-based, which allows for DOM interaction via a clear tree structure that you don't get with jQuery.
-
-### create-react-app
-
-To start up the process, I used create-react-app. Create-react-app is a handy tool for quickly setting up a React project because it pre-configures webpack and babel along with modules like jest, which I used for testing.
-
-### jQuery
-
-Okay, so I know I criticized jQuery before, but it has one method that's pretty useful for extracting JSON from a webpage, `$.getJSON`. `$.getJSON` returns a promise, which I used to update the app's state with either search results or an error message.
-
-### enzyme
-
-Enzyme is a module made specifically for React and contains a ton of useful testing methods. In this project, I used enzyme's `shallow` method to render components for testing. I used `shallow` rather than `mount` because I didn't need to render all of a component's children for the tests. -->
+```
