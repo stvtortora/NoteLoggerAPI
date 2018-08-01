@@ -1,22 +1,13 @@
 # SubRedditBrowser
 
- SubRedditBrowser allows users to browse posts on reddit by subreddit, save posts, and record private memos about them. It's built with a MERN stack (MongoDB, Express, React+Redux, Node).
+ SubRedditBrowser allows users to browse posts on reddit by subreddit, save posts, and record private memos about them. It's built with a MERN stack (MongoDB, Express, React+Redux, Node). To check it at https://glacial-reef-22216.herokuapp.com/.
 
 
 ## Testing React Components
 
- To build to React components, TDD was employed with jest and enzyme. Below is the return value of the resultsFeed component's render method, along with some tests written with jest and enzyme.
+ To build to React components, TDD was employed with jest and enzyme. Below are tests for the resultsFeed component written with jest and enzyme.
 
  ```javascript
- return(
-   <div className='feed'>
-     <div>{previousArrow}</div>
-     <div>
-       {posts}
-     </div>
-     <div>{nextArrow}</div>
-   </div>
- )
 
  describe('<ResultsFeed>', () => {
    let props;
@@ -51,27 +42,7 @@
            "selftext": "Some text",
            "otherProp": "A property"
          },
-         {
-           "author": 'Author2',
-           "title": "Post2",
-           "thumbnail": null,
-           "selftext": "Some text",
-           "otherProp": "A property"
-         },
-         {
-           "author": 'Author3',
-           "title": "Post3",
-           "thumbnail": null,
-           "selftext": "Some text",
-           "otherProp": "A property"
-         },
-         {
-           "author": 'Author4',
-           "title": "Post4",
-           "thumbnail": null,
-           "selftext": "Some text",
-           "otherProp": "A property"
-         }
+         //...three more
        ]
      });
 
@@ -93,35 +64,12 @@
 
  ```
 
-
 ## Testing Express Routes
 
-TDD was also used on the backend to build out express routes. Below is the DELETE method  of the `/subreddits` route, along with tests written with supertest.
+TDD was also used on the backend to build out express routes. Below are tests for the DELETE method  of the `/subreddits` route written with supertest.
 
 ```javascript
 
-//delete method
-app.delete('/api/subreddits/:id', authenticate, (req, res) => {
-  const id = req.params.id;
-
-  if(!ObjectID.isValid(id)) {
-    return res.status(404).send();
-  }
-
-  SubReddit.findOneAndRemove({
-    _id: id,
-    userId: req.user._id
-  }).then(subreddit => {
-    if(!subreddit) {
-      return res.status(404).send();
-    }
-    res.send({subreddit})
-  }).catch((e) => {
-    res.status(400).send();
-  });
-});
-
-///tests
 describe('DELETE /subreddits/:id', () => {
   it('should delete a single subreddit', (done) => {
     const id = subreddits[1]._id.toHexString();
@@ -183,10 +131,9 @@ describe('DELETE /subreddits/:id', () => {
 });
 ```
 
-
 ## Securing Routes
 
-In order to prevent users from saving, updating, or editing posts that don't belong to them, it was necessary to secure express routes with JSON web tokens (jwt). Below are the methods for generating tokens and finding the user that matches the token sent from the client. The latter is used whenever a user signs in, and the former whenever a user makes a post, patch, or delete request.  
+In order to prevent users from saving, updating, or editing posts that don't belong to them, it was necessary to secure express routes with JSON web tokens (jwt). Below is the method for generating tokens, is used whenever a user signs in.  
 
 ```javascript
 UserSchema.methods.generateAuthToken = function () {
@@ -199,85 +146,21 @@ UserSchema.methods.generateAuthToken = function () {
     return token;
   })
 }
-
-UserSchema.statics.findByToken = function (token) {
-  let decoded;
-
-  try {
-    decoded = jwt.verify(token, process.env.JWT_SECRET);
-  } catch (e) {
-    return Promise.reject();
-  }
-
-  return this.findOne({
-    _id: decoded._id,
-    'tokens.token': token,
-    'tokens.access': 'auth'
-  });
-}
-
-UserSchema.methods.toJSON = function () {
-  return _.pick(this.toObject(), ['_id', 'username']);
-}
-
-UserSchema.methods.removeToken = function (token) {
-  return this.update({
-    $pull: {
-      tokens: {
-        token
-      }
-    }
-  })
-}
 ```
 
 ## Retrieving and Parsing JSON from Reddit
 
-By appending any reddit url with `.json`, you can access the JSON data for that url. This application leverages this API to display subreddits and posts. Below is the code for retrieving and parsing subreddit information.  
+By appending any reddit url with `.json`, you can access the JSON data for that url. This application leverages this API to display subreddits and posts. Below is the code for retrieving and parsing post information.  
 
 ```javascript
-filterResults = (results) => {
-  return results.data.children.map(post => {
-    return Object.keys(post.data).reduce((postData, key) => {
-      if(["author", "title", "thumbnail", "selftext", "permalink"].includes(key)){
-        postData[key] = post.data[key];
-      }
-
-      return postData;
-    }, {});
-  });
-}
-
-
-onSubmit = () => {
-  this.retrieveData(this.state.input).done(res => {
+componentDidMount () {
+  this.retrieveData().done(res => {
     this.setState({
-      subRedditTitle: this.state.input,
-      searchResults: this.filterResults(res),
-      errorMessage: ''
-    });
-    this.props.showSearchResults()
-  }).fail(() => {
-    this.setState({
-      errorMessage: 'Please enter the name of an existing subreddit.'
-    });
-  });
+      comments: this.formatComments(res[1])
+    })
+  })
 }
 
-parseInput = (input) => {
-  return input.split(' ').join('');
-}
-
-retrieveData = (input) => {
-  return $.getJSON(`https://www.reddit.com/r/${this.parseInput(input)}.json`, res => {
-    return res;
-  });
-}
-```
-
-And here is the code for parsing post information:
-
-```javascript
 formatComments = (comments) => {
   return comments.data.children.map(comment => {
     let replies;
@@ -293,5 +176,4 @@ retrieveData = () => {
     return res;
   });
 }
-
 ```
