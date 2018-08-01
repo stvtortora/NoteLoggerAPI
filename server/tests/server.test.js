@@ -2,7 +2,7 @@ const expect = require('expect');
 const request = require('supertest');
 const {ObjectID} = require('mongodb');
 
-const {app} = require('./../server');
+const {app} = require('./../../server');
 const {SubReddit} = require('./../models/subreddit');
 const {subreddits, generateSubReddits, users, generateUsers} = require('./seed/seed');
 
