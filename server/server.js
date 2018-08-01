@@ -2,6 +2,7 @@ require('./config/config');
 const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 const cors = require('cors');
 const {ObjectID} = require('mongodb');
 
@@ -134,6 +135,12 @@ app.delete('/api/users/current/token', authenticate, (req, res) => {
     res.status(400).send();
   })
 })
+
+if (process.env.NODE_EV === 'production') {
+  app.use(express.static('src/build'));
+
+  app.get('*', (req, res) => )
+}
 
 
 app.listen(port, () => {
