@@ -1,4 +1,4 @@
-require('./server/config/config');
+require('./config/config');
 const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -6,11 +6,11 @@ const path = require('path');
 const cors = require('cors');
 const {ObjectID} = require('mongodb');
 
-var { mongoose } = require('./server/db/mongoose');
-const { SubReddit } = require('./server/models/subreddit');
-const { Sub } = require('./server/models/sub');
-const { User } = require('./server/models/user');
-const { authenticate } = require('./server/middleware/authenticate');
+var { mongoose } = require('./db/mongoose');
+const { SubReddit } = require('./models/subreddit');
+const { Sub } = require('./models/sub');
+const { User } = require('./models/user');
+const { authenticate } = require('./middleware/authenticate');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -136,13 +136,13 @@ app.delete('/api/users/current/token', authenticate, (req, res) => {
   })
 })
 
-// if (process.env.NODE_EV === 'production') {
-//   app.use(express.static('/client/build'));
+if (process.env.NODE_EV === 'production') {
+  app.use(express.static('/client/build'));
 
   app.get('*', (req, res) => {
      res.sendFile(path.join(__dirname+'/client/build/index.html'));
   })
-// }
+}
 
 
 app.listen(port, () => {
