@@ -8,7 +8,7 @@ class Comment extends React.Component {
   render () {
     return (
       <div className='comment'>
-        <p className='comment-author'>{this.props.author}</p>
+        <a href={`https://www.reddit.com/user/${this.props.author}`} className='comment-author'>{this.props.author}</a>
         <div className='comment-body'>{this.props.body}</div>
         <div className='comment-replies'>
           <div className='comment-reply'>{this.props.replies}</div>

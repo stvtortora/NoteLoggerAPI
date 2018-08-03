@@ -1,6 +1,6 @@
 # SubRedditBrowser
 
- SubRedditBrowser allows users to browse posts on reddit by subreddit, save posts, and record private memos about them. It's built with a MERN stack (MongoDB, Express, React+Redux, Node). To check it at https://glacial-reef-22216.herokuapp.com/.
+ SubRedditBrowser allows users to browse posts on reddit by subreddit, save posts, and record private memos about them. It's built with a MERN stack (MongoDB, Express, React+Redux, Node). Check it at https://glacial-reef-22216.herokuapp.com/.
 
 
 ## Testing React Components

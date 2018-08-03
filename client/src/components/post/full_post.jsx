@@ -15,6 +15,7 @@ class FullPost extends React.Component {
 
   componentDidMount () {
     this.retrieveData().done(res => {
+      console.log(res)
       this.setState({
         comments: this.formatComments(res[1])
       })
@@ -70,10 +71,10 @@ class FullPost extends React.Component {
           <div className='full-post'>
               {memo}
             <div className='post-header-container'>
-              <div className='post-author'>Posted by {this.props.data.author}</div>
+              <a href={`https://www.reddit.com/user/${this.props.data.author}`} className='post-author'>{this.props.data.author}</a>
                <p className='save-button' id='full' onClick={() => this.props.setUpModal(modalData, buttonType)}>{buttonType}</p>
             </div>
-            <div className='post-title'>{this.props.data.title}</div>
+            <a href={`https://www.reddit.com${this.props.data.permalink}`} className='post-title'>{this.props.data.title}</a>
             <div className='post-text'>{this.props.data.selftext}</div>
             <img src={thumbnail} />
             <div>{this.state.comments}</div>
