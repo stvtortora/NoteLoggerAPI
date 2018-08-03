@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import Search from './search';
 import ResultsFeed from './resultsFeed';
 import { fetchSubReddits } from './../../actions/sub_reddit_actions';
@@ -18,7 +19,11 @@ export class Content extends Component {
   }
 
   componentDidMount () {
-    this.props.fetchSubReddits(this.props.user);
+    if (this.props.user) {
+      this.props.fetchSubReddits(this.props.user);
+    } else {
+      this.redirectToLogin();
+    }
   }
 
   componentDidUpdate (prevProps) {
@@ -28,7 +33,7 @@ export class Content extends Component {
       })
     }
   }
-  
+
   onInputChange = (event) => {
     this.setState({
       input: event.target.value
@@ -73,6 +78,10 @@ export class Content extends Component {
     });
   }
 
+  redirectToLogin = () => {
+    this.props.history.push('/');
+  }
+
   render() {
     const feedData = this.props.showFavorites ? this.props.favorites : this.state.searchResults;
 
@@ -112,4 +121,4 @@ const mapDispatchToProps = dispatch => ({
   showSearchResults: () => dispatch(showSearchResults())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Content);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Content));
