@@ -42,7 +42,8 @@ export class Post extends React.Component {
            <p className='save-button' onClick={() => this.props.setUpModal(modalData, buttonType)}>{buttonType}</p>
            {editButton}
          </div>
-         <p className='author-name' ><strong>Author:</strong> { this.props.data.author }</p>
+         <strong className='author-name'>Author:</strong>
+         <a href={`https://www.reddit.com/user/${this.props.data.author}`} className='post-author'>{this.props.data.author}</a>
          <p className='post-text' >{this.props.data.selftext}</p>
        </div>
      </div>

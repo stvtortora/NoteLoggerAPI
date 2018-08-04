@@ -274,6 +274,11 @@ header {
   font-size: 16px;
 }
 
+.post > div > h2:hover {
+  cursor: pointer;
+  color: white;
+}
+
 .post > div > p {
   font-size: 12px;
 }
@@ -299,7 +304,8 @@ header {
 }
 
 .author-name {
-  border-bottom: 1px solid #DCE0E6;
+  /* border-bottom: 1px solid #DCE0E6; */
+  font-size: 12px;
 }
 
 .arrow-placeholder {
