@@ -133,7 +133,7 @@ describe('DELETE /subreddits/:id', () => {
 
 ## Securing Routes
 
-In order to prevent users from saving, updating, or editing posts that don't belong to them, it was necessary to secure express routes with JSON web tokens (jwt). Below is the method for generating tokens, is used whenever a user signs in.  
+In order to prevent users from saving, updating, or editing posts that don't belong to them, it was necessary to secure express routes with JSON web tokens (jwt). Below is the method for generating tokens, which is used whenever a user signs in.  
 
 ```javascript
 UserSchema.methods.generateAuthToken = function () {

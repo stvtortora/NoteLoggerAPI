@@ -6,6 +6,7 @@ export const ADD_SUBREDDIT = 'ADD_SUBREDDIT';
 export const REMOVE_SUBREDDIT = 'REMOVE_SUBREDDIT';
 export const UPDATE_CURRENT_POST = 'UPDATE_CURRENT_POST';
 export const UPDATE_DOCUMENT = 'UPDATE_DOCUMENT';
+export const RECEIVE_SEARCH_RESULTS = 'RECEIVE_SEARCH_RESULTS';
 
 export const fetchSubReddits = (user) => dispatch => (
   APIUtil.fetchSubReddits(user).then((favorites) => dispatch({type: RECEIVE_SUBREDDITS, favorites}))
@@ -25,4 +26,8 @@ export const updateDocument = (post, user) => dispatch => (
 
 export const updateCurrentPost = data => ({
   type: UPDATE_CURRENT_POST, data
+})
+
+export const receiveSearchResults = results => ({
+  type: RECEIVE_SEARCH_RESULTS, results
 })

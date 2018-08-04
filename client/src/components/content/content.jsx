@@ -5,6 +5,7 @@ import Search from './search';
 import ResultsFeed from './resultsFeed';
 import { fetchSubReddits } from './../../actions/sub_reddit_actions';
 import { showSearchResults } from './../../actions/ui_actions';
+import { receiveSearchResults } from './../../actions/sub_reddit_actions';
 import $ from 'jquery';
 
 export class Content extends Component {
@@ -12,7 +13,6 @@ export class Content extends Component {
     super(props);
     this.state = {
       input: '',
-      searchResults: [],
       errorMessage: '',
       subRedditTitle: ''
     }
@@ -57,9 +57,9 @@ export class Content extends Component {
     this.retrieveData(this.state.input).done(res => {
       this.setState({
         subRedditTitle: this.state.input,
-        searchResults: this.filterResults(res),
         errorMessage: ''
       });
+      this.props.receiveSearchResults(this.filterResults(res))
       this.props.showSearchResults()
     }).fail(() => {
       this.setState({
@@ -83,7 +83,7 @@ export class Content extends Component {
   }
 
   render() {
-    const feedData = this.props.showFavorites ? this.props.favorites : this.state.searchResults;
+    const feedData = this.props.showFavorites ? this.props.favorites : this.props.searchResults;
 
     let displayTitle;
     if (this.props.showFavorites) {
@@ -111,14 +111,15 @@ const mapStateToProps = state => {
   return ({
     favorites,
     user: state.session,
-    showFavorites: state.ui
+    showFavorites: state.ui,
+    searchResults: state.searchResults
   })
-
 }
 
 const mapDispatchToProps = dispatch => ({
   fetchSubReddits: (user) => dispatch(fetchSubReddits(user)),
-  showSearchResults: () => dispatch(showSearchResults())
+  showSearchResults: () => dispatch(showSearchResults()),
+  receiveSearchResults: (results) => dispatch(receiveSearchResults(results))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Content));
