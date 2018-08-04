@@ -14,12 +14,15 @@ class FullPost extends React.Component {
   }
 
   componentDidMount () {
-    this.retrieveData().done(res => {
-      console.log(res)
-      this.setState({
-        comments: this.formatComments(res[1])
+    if (this.props.user) {
+      this.retrieveData().done(res => {
+        this.setState({
+          comments: this.formatComments(res[1])
+        })
       })
-    })
+    } else {
+      this.redirectToLogin();
+    }
   }
 
   formatComments = (comments) => {
@@ -36,6 +39,10 @@ class FullPost extends React.Component {
     return $.getJSON(`https://www.reddit.com${this.props.data.permalink}.json`, res => {
       return res;
     });
+  }
+
+  redirectToLogin = () => {
+    this.props.history.push('/');
   }
 
   render () {

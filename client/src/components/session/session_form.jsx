@@ -28,8 +28,6 @@ class SessionForm extends React.Component {
     })
   }
 
-
-
   render() {
     let usernameError = <div className='blankerrmsg'></div>;
     let passwordError = <div className='blankerrmsg'></div>;
