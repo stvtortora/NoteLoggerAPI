@@ -7,17 +7,10 @@ import { resetPagination, updatePagination } from './../../actions/ui_actions';
 export class ResultsFeed extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      postsData: this.props.searchResults,
-      startIdx: 0,
-      endIdx: 3
-    }
   }
 
   componentDidUpdate(prevProps) {
-    if(this.props.searchResults !== prevProps.searchResults) {
-
+    if(this.props.searchResults !== prevProps.searchResults && prevProps.startIdx !== 0) {
       this.props.resetPagination()
     }
   }
