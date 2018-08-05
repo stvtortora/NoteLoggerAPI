@@ -89,7 +89,12 @@ class FullPost extends React.Component {
         </div>
       )
     }
-    return null
+
+    return (
+      <div class='loader-container'>
+        <div class='loader'></div>;
+      </div>
+    )
   }
 }
 
