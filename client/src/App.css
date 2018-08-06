@@ -153,12 +153,22 @@ header {
   padding: 25px;
 }
 
+.toggleLogin {
+  text-decoration: underline;
+}
+
+ .toggleLogin:hover {
+   cursor: pointer;
+   color: white;
+ }
+
 .login > div {
   margin: 20px;
 }
 
 .session-form {
   display: block;
+  font-family: "Comic Sans MS";
 }
 
 .form-field > input {
@@ -167,7 +177,6 @@ header {
   width: 300px;
   height: 30px;
   margin: auto;
-  /* margin-bottom: 20px; */
   font-size: 20px;
   outline: none;
 }

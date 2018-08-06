@@ -2,8 +2,8 @@ import React from 'react';
 import Comment from './comment';
 import { setUpModal } from './../../actions/modal_actions';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import $ from 'jquery';
+import shortid from 'shortid';
 
 class FullPost extends React.Component {
   constructor (props) {
@@ -31,7 +31,7 @@ class FullPost extends React.Component {
       if (comment.data.replies && comment.data.replies !== '') {
         replies = this.formatComments(comment.data.replies);
       }
-      return <Comment author={comment.data.author} body={comment.data.body} replies={replies} />
+      return <Comment key={shortid.generate()} author={comment.data.author} body={comment.data.body} replies={replies} />
     })
   }
 
@@ -47,7 +47,7 @@ class FullPost extends React.Component {
 
   render () {
     if (this.state.comments) {
-      let buttonType = '+Save';
+      let buttonType = 'Save';
       let modalData = this.props.data;
       let memo;
       let thumbnail;
@@ -56,7 +56,7 @@ class FullPost extends React.Component {
       })
 
       if (postId) {
-        buttonType = '-Remove';
+        buttonType = 'Remove';
         modalData = postId;
         const editButton = <p className='save-button' id='edit-button' onClick={() => this.props.setUpModal(this.props.favorites[postId], 'Edit')}>Edit</p>
         memo = (
@@ -84,7 +84,7 @@ class FullPost extends React.Component {
             </div>
             <a href={`https://www.reddit.com${this.props.data.permalink}`} className='post-title'>{this.props.data.title}</a>
             <div className='post-text'>{this.props.data.selftext}</div>
-            <img src={thumbnail} />
+            <img src={thumbnail} alt='thumbnail'/>
             <div>{this.state.comments}</div>
           </div>
         </div>
@@ -92,8 +92,8 @@ class FullPost extends React.Component {
     }
 
     return (
-      <div class='loader-container'>
-        <div class='loader'></div>;
+      <div className='loader-container'>
+        <div className='loader'></div>;
       </div>
     )
   }

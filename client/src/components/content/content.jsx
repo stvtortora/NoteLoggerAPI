@@ -52,8 +52,13 @@ export class Content extends Component {
     });
   }
 
+  handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      this.handleSubmit()
+    }
+  }
 
-  onSubmit = () => {
+  handleSubmit = () => {
     this.retrieveData(this.state.input).done(res => {
       this.setState({
         subRedditTitle: this.state.input,
@@ -94,7 +99,7 @@ export class Content extends Component {
 
     return (
       <div className="content">
-        <Search onInputChange={ this.onInputChange } onSubmit={ this.onSubmit }/>
+        <Search onInputChange={ this.onInputChange } handleSubmit={ this.handleSubmit } handleKeyPress={this.handleKeyPress}/>
         <p>{this.state.errorMessage}</p>
         <p>{ displayTitle }</p>
         <ResultsFeed searchResults={ feedData } />

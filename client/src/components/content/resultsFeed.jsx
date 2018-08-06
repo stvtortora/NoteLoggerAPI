@@ -5,10 +5,6 @@ import { resetPagination, updatePagination } from './../../actions/ui_actions';
 
 
 export class ResultsFeed extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidUpdate(prevProps) {
     if(this.props.searchResults !== prevProps.searchResults && prevProps.startIdx !== 0) {
       this.props.resetPagination()
@@ -35,7 +31,7 @@ export class ResultsFeed extends React.Component {
         return <Post key={i} data={postData} postId={postId}/>
       });
 
-      const previousArrow = this.props.startIdx > 0 ? <i className='previous' onClick={ this.handleScroll(-3) }/ > : <div className='arrow-placeholder'/>;
+    const previousArrow = this.props.startIdx > 0 ? <i className='previous' onClick={ this.handleScroll(-3) }/ > : <div className='arrow-placeholder'/>;
     const nextArrow = this.props.endIdx < postsData.length ? <i className='next' onClick={ this.handleScroll(3) }/ > : <div className='arrow-placeholder'/>;
 
       return(

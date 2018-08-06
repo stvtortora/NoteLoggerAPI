@@ -5,10 +5,6 @@ import { logout } from './../../actions/session_actions';
 import { showFavorites } from './../../actions/ui_actions';
 
 class Menu extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   handleLogout = () => {
     this.props.logout(this.props.user).then(() => {
       this.props.history.push('/');

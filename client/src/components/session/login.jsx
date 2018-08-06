@@ -10,6 +10,12 @@ class Login extends React.Component {
     this.state = {signup: true}
   }
 
+  componentWillMount () {
+    if (this.props.user) {
+      this.props.history.push('/search');
+    }
+  }
+
   toggleState = () => {
     this.setState({
       signup: !this.state.signup
@@ -17,17 +23,13 @@ class Login extends React.Component {
   }
 
   render() {
-    if (this.props.user) {
-      this.props.history.push('/search');
-      return null;
-    }
     const form = this.state.signup ? <SignupForm formName={'Signup'}/> : <LoginForm formName={'Login'}/>;
-    const message = this.state.signup ? 'Already a member? Login here.' : 'Not a member? Signup instead';
+  const message = this.state.signup ? 'Already a member? Login.' : 'Not a member? Signup.';
 
     return (
       <div className='login'>
         {form}
-        <div onClick={this.toggleState}>{message}</div>
+        <div className='toggleLogin' onClick={this.toggleState}>{message}</div>
       </div>
     )
   }

@@ -25,7 +25,9 @@ describe('<ResultsFeed>', () => {
     props = {
       searchResults: [],
       favorites: {},
-      user: {}
+      user: {},
+      startIdx: 0,
+      endIdx: 3
     };
 
     mountedResultsFeed = undefined;

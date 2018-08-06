@@ -1,5 +1,3 @@
-import store from './../store/store';
-
 export const loadCachedState = () => {
   const serializedState = localStorage.getItem('state');
   if(serializedState){

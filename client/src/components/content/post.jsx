@@ -6,10 +6,6 @@ import { setUpModal } from './../../actions/modal_actions';
 import { updateCurrentPost } from './../../actions/posts_actions';
 
 export class Post extends React.Component {
-  constructor (props) {
-    super(props);
-  }
-
   handleViewPost = () => {
     this.props.updateCurrentPost(this.props.data)
     this.props.history.push(`/post/${this.parseTitle(this.props.data.title)}`)
@@ -23,13 +19,13 @@ export class Post extends React.Component {
 
   render () {
     const thumbnail = this.props.data.thumbnail && this.props.data.thumbnail.includes('https') ? this.props.data.thumbnail : RedditIcon;
-    let buttonType = '-Remove';
+    let buttonType = 'Remove';
     let editButton =  <p className='save-button' onClick={() => this.props.setUpModal(this.props.data, 'Edit')}>Edit</p>
     let modalData = this.props.postId;
     if (!this.props.postId) {
       modalData = this.props.data;
       modalData.docType = 'post';
-      buttonType = '+Save';
+      buttonType = 'Save';
       editButton = null
     }
 

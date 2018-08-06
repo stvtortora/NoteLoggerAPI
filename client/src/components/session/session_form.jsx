@@ -1,6 +1,4 @@
 import React from 'react';
-import { signUp } from './../../actions/session_actions';
-import { connect } from 'react-redux';
 import {withRouter} from 'react-router';
 
 class SessionForm extends React.Component {
@@ -19,6 +17,12 @@ class SessionForm extends React.Component {
     return e => this.setState({
       [field]: e.currentTarget.value
     });
+  }
+
+  handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      this.handleSubmit(e)
+    }
   }
 
   handleSubmit(e) {
@@ -53,7 +57,7 @@ class SessionForm extends React.Component {
         </div>
         <div className='form-field'>
           <label>Password</label>
-          <input type="password" value={this.state.user} onChange={this.handleChange('password')}/>
+          <input onKeyPress={this.handleKeyPrss} type="password" value={this.state.user} onChange={this.handleChange('password')}/>
           {passwordError}
         </div>
         <button type='submit'>{this.props.formName}</button>

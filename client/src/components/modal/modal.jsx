@@ -11,9 +11,9 @@ const Modal = ({modal, closeModal}) => {
   }
 
   let display;
-  if (modal.modalType === '+Save') {
+  if (modal.modalType === 'Save') {
     display = <SavePost />
-  } else if (modal.modalType === '-Remove') {
+  } else if (modal.modalType === 'Remove') {
     display = <RemovePost />
   } else {
     display = <EditPost />

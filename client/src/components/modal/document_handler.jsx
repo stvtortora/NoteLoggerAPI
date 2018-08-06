@@ -15,7 +15,7 @@ class DocumentHandler extends React.Component {
   }
 
   handleSubmit = () => {
-    if (this.props.type === '+Save' || this.props.type === 'Update') {
+    if (this.props.type === 'Save' || this.props.type === 'Update') {
       this.props.data.memo = this.state.memo;
     }
 
@@ -26,9 +26,9 @@ class DocumentHandler extends React.Component {
     let memoBox = <textarea className='memo-box' value={this.state.memo} onChange={this.handleChange}></textarea>;
     let message;
     let klass = '';
-    if (this.props.type === '+Save') {
+    if (this.props.type === 'Save') {
       message = <div className='document-handler-message'>Write a private memo before saving.<br/>Do not worry, you can change this later!</div>
-    } else if (this.props.type === '-Remove'){
+    } else if (this.props.type === 'Remove'){
       message = <div className='document-handler-message'>Are you sure you want to unsave this post?</div>
       memoBox = null;
       klass = 'remove'

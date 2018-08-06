@@ -32,10 +32,10 @@ describe('<Post>', () => {
   })
 
   it('displays the author name', () => {
-    expect(post.find('.author-name')
+    expect(post.find('.post-author')
       .render()
       .text())
-      .toEqual(`Author: ${props.data.author}`);
+      .toEqual(`${props.data.author}`);
   })
 
   it('displays post text', () => {
