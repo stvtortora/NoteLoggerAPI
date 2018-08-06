@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import Search from './search';
 import ResultsFeed from './resultsFeed';
-import { fetchSubReddits } from './../../actions/sub_reddit_actions';
+import { fetchPosts } from './../../actions/posts_actions';
 import { showSearchResults } from './../../actions/ui_actions';
-import { receiveSearchResults } from './../../actions/sub_reddit_actions';
+import { receiveSearchResults } from './../../actions/posts_actions';
 import $ from 'jquery';
 
 export class Content extends Component {
@@ -20,7 +20,7 @@ export class Content extends Component {
 
   componentDidMount () {
     if (this.props.user) {
-      this.props.fetchSubReddits(this.props.user);
+      this.props.fetchPosts(this.props.user);
     } else {
       this.redirectToLogin();
     }
@@ -104,8 +104,8 @@ export class Content extends Component {
 }
 
 const mapStateToProps = state => {
-  const favorites = Object.keys(state.subRedditFavs).map(id => {
-    return state.subRedditFavs[id];
+  const favorites = Object.keys(state.savedPosts).map(id => {
+    return state.savedPosts[id];
   });
 
   return ({
@@ -117,7 +117,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  fetchSubReddits: (user) => dispatch(fetchSubReddits(user)),
+  fetchPosts: (user) => dispatch(fetchPosts(user)),
   showSearchResults: () => dispatch(showSearchResults()),
   receiveSearchResults: (results) => dispatch(receiveSearchResults(results))
 })

@@ -1,6 +1,6 @@
 import DocumentHandler from './document_handler';
 import { connect } from 'react-redux';
-import { updateDocument } from './../../actions/sub_reddit_actions';
+import { updateDocument } from './../../actions/posts_actions';
 
 
 const mapStateToProps = state => ({

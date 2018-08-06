@@ -1,4 +1,4 @@
-import  { RECEIVE_SEARCH_RESULTS } from './../actions/sub_reddit_actions';
+import  { RECEIVE_SEARCH_RESULTS } from './../actions/posts_actions';
 import  { LOGOUT_USER } from './../actions/session_actions';
 
 export default (state = [], action) => {

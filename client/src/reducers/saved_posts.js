@@ -1,21 +1,21 @@
-import { RECEIVE_SUBREDDITS, ADD_SUBREDDIT, REMOVE_SUBREDDIT, UPDATE_DOCUMENT } from '../actions/sub_reddit_actions';
+import { RECEIVE_POSTS, ADD_POST, REMOVE_POST, UPDATE_DOCUMENT } from '../actions/posts_actions';
 import { LOGOUT_USER } from '../actions/session_actions';
 import merge from 'lodash/merge';
 
 export default (state = {}, action) => {
   let newState;
   switch (action.type) {
-    case RECEIVE_SUBREDDITS:
-      return action.favorites.subreddits.reduce((newState, subReddit) => {
-        if (subReddit.docType === 'post') {
-          newState[subReddit._id] = subReddit;
+    case RECEIVE_POSTS:
+      return action.favorites.subreddits.reduce((newState, post) => {
+        if (post.docType === 'post') {
+          newState[post._id] = post;
         }
         return newState;
       }, {});
-    case ADD_SUBREDDIT:
+    case ADD_POST:
       newState = merge({}, state);
-      if (action.subReddit.docType === 'post') {
-        newState[action.subReddit._id] = action.subReddit;
+      if (action.post.docType === 'post') {
+        newState[action.post._id] = action.post;
       }
       return newState;
     case UPDATE_DOCUMENT:
@@ -25,7 +25,7 @@ export default (state = {}, action) => {
       }
       console.log(newState)
       return newState;
-    case REMOVE_SUBREDDIT:
+    case REMOVE_POST:
       newState = merge({}, state);
       delete newState[action.postId]
       return newState;

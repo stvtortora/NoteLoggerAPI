@@ -1,4 +1,4 @@
-import  { UPDATE_CURRENT_POST } from './../actions/sub_reddit_actions';
+import  { UPDATE_CURRENT_POST } from './../actions/posts_actions';
 
 export default (state = null, action) => {
   switch (action.type) {

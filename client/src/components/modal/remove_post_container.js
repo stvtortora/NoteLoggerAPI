@@ -1,6 +1,6 @@
 import DocumentHandler from './document_handler';
 import { connect } from 'react-redux';
-import { removeFavorite } from './../../actions/sub_reddit_actions';
+import { removeFavorite } from './../../actions/posts_actions';
 
 
 const mapStateToProps = state => ({

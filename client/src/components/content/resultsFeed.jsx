@@ -54,7 +54,7 @@ export class ResultsFeed extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  favorites: state.subRedditFavs,
+  favorites: state.savedPosts,
   user: state.session,
   startIdx: state.pagination.startIdx,
   endIdx: state.pagination.endIdx

@@ -27,7 +27,7 @@ export const logOut = (user) => {
   })
 }
 
-export const fetchSubReddits = (user) => {
+export const fetchPosts = (user) => {
   return $.ajax({
     method: 'GET',
     contentType: "application/json",
@@ -36,29 +36,29 @@ export const fetchSubReddits = (user) => {
   })
 }
 
-export const addSubReddit = (subReddit, user) => {
+export const addPost = (post, user) => {
   return $.ajax({
     method: 'POST',
     contentType: "application/json",
     dataType: 'json',
     url: `https://floating-refuge-85872.herokuapp.com/api/subreddits`,
-    data: JSON.stringify(subReddit),
+    data: JSON.stringify(post),
     headers: {'X-Auth': user.token}
   })
 }
 
-export const updateDocument = (subreddit, user) => {
+export const updateDocument = (post, user) => {
   return $.ajax({
     method: 'PATCH',
     contentType: "application/json",
     dataType: 'json',
-    url: `https://floating-refuge-85872.herokuapp.com/api/subreddits/${subreddit._id}`,
-    data: JSON.stringify(subreddit),
+    url: `https://floating-refuge-85872.herokuapp.com/api/subreddits/${post._id}`,
+    data: JSON.stringify(post),
     headers: {'X-Auth': user.token}
   })
 }
 
-export const removeSubReddit = (postId, user) => {
+export const removePost = (postId, user) => {
   return $.ajax({
     method: 'DELETE',
     contentType: "application/json",
