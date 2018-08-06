@@ -5,7 +5,7 @@
 
 ## Testing React Components
 
- To build to React components, TDD was employed with jest and enzyme. Below are tests for the resultsFeed component written with jest and enzyme.
+ To build out React components, TDD was applied with jest and enzyme. Below are tests for the resultsFeed component written with jest and enzyme.
 
  ```javascript
 
@@ -133,7 +133,7 @@ describe('DELETE /subreddits/:id', () => {
 
 ## Securing Routes
 
-In order to prevent users from saving, updating, or editing posts that don't belong to them, it was necessary to secure express routes with JSON web tokens (jwt). Below is the method for generating tokens, which is used whenever a user signs in.  
+In order to prevent users from performing CRUD operations on posts that don't belong to them, it was necessary to secure express routes with JSON web tokens (jwt). Below is the method for generating tokens, which is used whenever a user signs in.  
 
 ```javascript
 UserSchema.methods.generateAuthToken = function () {
@@ -150,7 +150,7 @@ UserSchema.methods.generateAuthToken = function () {
 
 ## Retrieving and Parsing JSON from Reddit
 
-By appending any reddit url with `.json`, you can access the JSON data for that url. This application leverages this API to display subreddits and posts. Below is the code for retrieving and parsing post information.  
+By appending any reddit url with `.json`, you can access the JSON data for that url. This application leverages this API to display subreddits and posts. Below is the code for retrieving and parsing post data. Since reddit comments follow a nested tree structure where each subtree is arbitrarily deep, `formatComments` recursively generates instances of `Comment` components, where comments are passed as props to the comment they're replying to.
 
 ```javascript
 componentDidMount () {

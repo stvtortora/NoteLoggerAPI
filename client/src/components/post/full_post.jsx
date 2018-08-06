@@ -54,10 +54,8 @@ class FullPost extends React.Component {
       const postId = Object.keys(this.props.favorites).find(id => {
         return this.props.favorites[id].title === this.props.data.title;
       })
-      console.log(this.props.favorites)
+
       if (postId) {
-        console.log('hi')
-        console.log(postId)
         buttonType = '-Remove';
         modalData = postId;
         const editButton = <p className='save-button' id='edit-button' onClick={() => this.props.setUpModal(this.props.favorites[postId], 'Edit')}>Edit</p>
