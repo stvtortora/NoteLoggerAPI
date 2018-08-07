@@ -3,7 +3,7 @@ import Comment from './comment';
 import { setUpModal } from './../../actions/modal_actions';
 import { connect } from 'react-redux';
 import $ from 'jquery';
-import shortid from 'shortid';
+var shortid = require('shortid');
 
 class FullPost extends React.Component {
   constructor (props) {
