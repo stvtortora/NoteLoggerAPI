@@ -137,11 +137,11 @@ app.delete('/api/users/current/token', authenticate, (req, res) => {
 })
 
 // if (process.env.NODE_EV === 'production') {
-  app.use(express.static(path.join(__dirname, "client", "build")));
-
-  app.get('*', (req, res) => {
-     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-  })
+  // app.use(express.static(path.join(__dirname, "client", "build")));
+  //
+  // app.get('*', (req, res) => {
+  //    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+  // })
 // }
 
 
