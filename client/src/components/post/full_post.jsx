@@ -3,7 +3,6 @@ import Comment from './comment';
 import { setUpModal } from './../../actions/modal_actions';
 import { connect } from 'react-redux';
 import $ from 'jquery';
-var shortid = require('shortid');
 
 class FullPost extends React.Component {
   constructor (props) {
@@ -31,7 +30,7 @@ class FullPost extends React.Component {
       if (comment.data.replies && comment.data.replies !== '') {
         replies = this.formatComments(comment.data.replies);
       }
-      return <Comment key={shortid.generate()} author={comment.data.author} body={comment.data.body} replies={replies} />
+      return <Comment author={comment.data.author} body={comment.data.body} replies={replies} />
     })
   }
 
