@@ -25,7 +25,7 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', (req, res) => {
-  // res.send({"message": "it works"});
+  res.send({"message": "it works"});
 })
 
 app.post('/api/subreddits', authenticate, (req, res) => {
