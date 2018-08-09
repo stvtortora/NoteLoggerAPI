@@ -3,7 +3,7 @@
   "main": "server.js",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/",
+  "homepage": "https://floating-refuge-85872.herokuapp.com/",
   "dependencies": {
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
