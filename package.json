@@ -3,7 +3,6 @@
   "main": "server.js",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://www.steventortora.com/SubredditBrowser/",
   "enigines": {
     "node": "8.9.0"
   },

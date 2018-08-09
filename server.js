@@ -24,9 +24,9 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('/', (req, res) => {
-  res.send({"message": "it works"});
-})
+// app.get('/', (req, res) => {
+//   res.send({"message": "it works"});
+// })
 
 app.post('/api/subreddits', authenticate, (req, res) => {
   const subreddit = new SubReddit({
