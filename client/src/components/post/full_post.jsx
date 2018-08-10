@@ -70,7 +70,7 @@ class FullPost extends React.Component {
         );
       }
       if (this.props.data.thumbnail.includes('https')) {
-        thumbnail = this.props.data.thumbnail
+        thumbnail = <img src={this.props.data.thumbnail} alt='thumbnail'/>
       }
 
       return (
@@ -83,7 +83,7 @@ class FullPost extends React.Component {
             </div>
             <a href={`https://www.reddit.com${this.props.data.permalink}`} className='post-title'>{this.props.data.title}</a>
             <div className='post-text'>{this.props.data.selftext}</div>
-            <img src={thumbnail} alt='thumbnail'/>
+            {thumbnail}
             <div>{this.state.comments}</div>
           </div>
         </div>
