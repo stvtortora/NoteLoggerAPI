@@ -49,7 +49,7 @@ class FullPost extends React.Component {
       let buttonType = 'Save';
       let modalData = this.props.data;
       let memo;
-      let thumbnail;
+      let thumbnail = <div></div>;
       const postId = Object.keys(this.props.favorites).find(id => {
         return this.props.favorites[id].title === this.props.data.title;
       })

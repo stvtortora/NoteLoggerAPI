@@ -56,7 +56,7 @@
  }
  ```
 
- Notice the call to `findByToken`. This is a static method defined on the User schema. It passes a JWT_SECRET environment variable to verify and the token to the```jwt.verify``` method, . If its a valid token, it returns the user associated with it. Here's the code:
+ Notice the call to `findByToken`. This is a static method defined on the User schema. It passes a JWT_SECRET environment variable to verify and the token to the```jwt.verify``` method. If its a valid token, it returns the user associated with it. Here's the code:
 
  ```javascript
  UserSchema.statics.findByToken = function (token) {
