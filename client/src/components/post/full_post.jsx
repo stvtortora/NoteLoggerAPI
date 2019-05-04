@@ -80,12 +80,12 @@ class FullPost extends React.Component {
       return (
         <div className='post-wrapper'>
           <div className='full-post'>
-              {memo}
             <div className='post-header-container'>
+              <a href={`https://www.reddit.com${this.props.data.permalink}`} className='post-title'>{this.props.data.title}</a>
               <a href={`https://www.reddit.com/user/${this.props.data.author}`} className='post-author'>{this.props.data.author}</a>
-               <p className='save-button' id='full' onClick={() => this.props.setUpModal(modalData, buttonType)}>{buttonType}</p>
+              <div className='save-button' id='full' onClick={() => this.props.setUpModal(modalData, buttonType)}>{buttonType}</div>
             </div>
-            <a href={`https://www.reddit.com${this.props.data.permalink}`} className='post-title'>{this.props.data.title}</a>
+              {memo}
             <div className='post-text'>{this.props.data.selftext}</div>
             {thumbnail}
             <div>{this.state.comments}</div>

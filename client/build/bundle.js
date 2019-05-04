@@ -310,12 +310,13 @@ var receiveSearchResults = exports.receiveSearchResults = function receiveSearch
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.logout = exports.login = exports.signUp = exports.LOGOUT_USER = exports.RECEIVE_SESSION_ERRORS = exports.RECEIVE_USER = undefined;
+exports.clearSessionErrors = exports.logout = exports.login = exports.signUp = exports.LOGOUT_USER = exports.CLEAR_SESSION_ERRORS = exports.RECEIVE_SESSION_ERRORS = exports.RECEIVE_USER = undefined;
 
 var _api_util = __webpack_require__(/*! ../util/api_util */ "./client/src/util/api_util.js");
 
 var RECEIVE_USER = exports.RECEIVE_USER = "RECEIVE_USER";
 var RECEIVE_SESSION_ERRORS = exports.RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
+var CLEAR_SESSION_ERRORS = exports.CLEAR_SESSION_ERRORS = "CLEAR_SESSION_ERRORS";
 var LOGOUT_USER = exports.LOGOUT_USER = "LOGOUT_USER";
 
 var signUp = exports.signUp = function signUp(user) {
@@ -346,6 +347,10 @@ var logout = exports.logout = function logout(user) {
       return dispatch({ type: LOGOUT_USER });
     });
   };
+};
+
+var clearSessionErrors = exports.clearSessionErrors = function clearSessionErrors() {
+  return { type: CLEAR_SESSION_ERRORS };
 };
 
 /***/ }),
@@ -1755,28 +1760,28 @@ var FullPost = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'full-post' },
-            memo,
             _react2.default.createElement(
               'div',
               { className: 'post-header-container' },
+              _react2.default.createElement(
+                'a',
+                { href: 'https://www.reddit.com' + this.props.data.permalink, className: 'post-title' },
+                this.props.data.title
+              ),
               _react2.default.createElement(
                 'a',
                 { href: 'https://www.reddit.com/user/' + this.props.data.author, className: 'post-author' },
                 this.props.data.author
               ),
               _react2.default.createElement(
-                'p',
+                'div',
                 { className: 'save-button', id: 'full', onClick: function onClick() {
                     return _this4.props.setUpModal(modalData, buttonType);
                   } },
                 buttonType
               )
             ),
-            _react2.default.createElement(
-              'a',
-              { href: 'https://www.reddit.com' + this.props.data.permalink, className: 'post-title' },
-              this.props.data.title
-            ),
+            memo,
             _react2.default.createElement(
               'div',
               { className: 'post-text' },
@@ -1848,6 +1853,8 @@ var _reactRouter = __webpack_require__(/*! react-router */ "./node_modules/react
 
 var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 
+var _session_actions = __webpack_require__(/*! ../../actions/session_actions */ "./client/src/actions/session_actions.js");
+
 var _signup_form_container = __webpack_require__(/*! ./signup_form_container */ "./client/src/components/session/signup_form_container.jsx");
 
 var _signup_form_container2 = _interopRequireDefault(_signup_form_container);
@@ -1887,6 +1894,7 @@ var Login = function (_React$Component) {
   }, {
     key: 'toggleState',
     value: function toggleState() {
+      this.props.clearSessionErrors();
       this.setState({
         signup: !this.state.signup
       });
@@ -1894,7 +1902,7 @@ var Login = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var form = this.state.signup ? _react2.default.createElement(_signup_form_container2.default, { formName: 'Signup' }) : _react2.default.createElement(_login_form_container2.default, { formName: 'Login' });
+      var form = this.state.signup ? _react2.default.createElement(_signup_form_container2.default, { formName: 'Sign up' }) : _react2.default.createElement(_login_form_container2.default, { formName: 'Login' });
       var message = this.state.signup ? 'Already a member? Login.' : 'Not a member? Signup.';
 
       return _react2.default.createElement(
@@ -1919,7 +1927,15 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
-exports.default = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToProps)(Login));
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    clearSessionErrors: function clearSessionErrors() {
+      return dispatch((0, _session_actions.clearSessionErrors)());
+    }
+  };
+};
+
+exports.default = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Login));
 
 /***/ }),
 
@@ -2038,8 +2054,14 @@ var SessionForm = function (_React$Component) {
       var _this3 = this;
 
       e.preventDefault();
+      var savedState = this.state;
       this.props.action({ username: this.state.username, password: this.state.password }).then(function (res) {
-        _this3.props.history.push('/search');
+        console.log(res);
+        if (res.type === "RECEIVE_SESSION_ERRORS") {
+          _this3.setState(savedState);
+        } else {
+          _this3.props.history.push('/search');
+        }
       });
     }
   }, {
@@ -2287,6 +2309,8 @@ exports.default = function () {
   switch (action.type) {
     case _session_actions.RECEIVE_SESSION_ERRORS:
       return action.errors;
+    case _session_actions.CLEAR_SESSION_ERRORS:
+      return null;
     default:
       return null;
   }

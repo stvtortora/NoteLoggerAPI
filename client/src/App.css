@@ -193,7 +193,10 @@ header {
 }
 
 .session-form > button {
+  background-color: #107ef4;
   color: white;
+  text-transform: uppercase;
+  font-weight: 600;
   border: 1px solid #107ef4;
   padding: 7px;
   border-radius: 4px;
@@ -205,7 +208,7 @@ header {
 
 .session-form > button:hover {
   cursor: pointer;
-  color: black;
+  background-color: #5ba4f3;
 }
 
 .content {
@@ -387,7 +390,7 @@ i:hover {
   flex-direction:row;
   justify-content: space-between;
   border-bottom: 1px solid #DCE0E6;
-  text-transform:uppercase;
+  /* text-transform:uppercase; */
 }
 
 .full-post {
@@ -400,7 +403,7 @@ i:hover {
 
 .post-author{
   font-size: 13px;
-  margin: 8px;
+  margin: 12px;
 }
 
 .post-header-container {
@@ -417,7 +420,7 @@ i:hover {
 
 .post-title {
   font-size: 20px;
-  margin-right: 10px;
+  padding-top: 5px;
 }
 
 .post-text {

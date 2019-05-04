@@ -28,8 +28,14 @@ class SessionForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    let savedState = this.state;
     this.props.action({username: this.state.username, password: this.state.password}).then(res => {
-      this.props.history.push('/search');
+      console.log(res)
+      if (res.type === "RECEIVE_SESSION_ERRORS") {
+        this.setState(savedState)
+      } else {
+        this.props.history.push('/search');
+      }
     })
   }
 

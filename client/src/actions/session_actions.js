@@ -2,6 +2,7 @@ import { signup, logIn, logOut } from '../util/api_util';
 
 export const RECEIVE_USER = "RECEIVE_USER";
 export const RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS"
+export const CLEAR_SESSION_ERRORS = "CLEAR_SESSION_ERRORS"
 export const LOGOUT_USER = "LOGOUT_USER";
 
 export const signUp = (user) => {
@@ -31,3 +32,5 @@ export const login = (user) => {
 export const logout = (user) => dispatch => (
   logOut(user).then(() => dispatch({type: LOGOUT_USER}))
 )
+
+export const clearSessionErrors = () => ({ type: CLEAR_SESSION_ERRORS })

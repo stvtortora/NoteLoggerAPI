@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import { clearSessionErrors } from '../../actions/session_actions';
 import SignupForm from './signup_form_container';
 import LoginForm from './login_form_container';
 
@@ -18,14 +19,15 @@ class Login extends React.Component {
   }
 
   toggleState() {
+    this.props.clearSessionErrors()
     this.setState({
       signup: !this.state.signup
     });
   }
 
   render() {
-    const form = this.state.signup ? <SignupForm formName={'Signup'}/> : <LoginForm formName={'Login'}/>;
-  const message = this.state.signup ? 'Already a member? Login.' : 'Not a member? Signup.';
+    const form = this.state.signup ? <SignupForm formName={'Sign up'}/> : <LoginForm formName={'Login'}/>;
+    const message = this.state.signup ? 'Already a member? Login.' : 'Not a member? Signup.';
 
     return (
       <div className='login'>
@@ -40,4 +42,10 @@ const mapStateToProps = state => ({
   user: state.session
 })
 
-export default withRouter(connect(mapStateToProps)(Login));
+const mapDispatchToProps = dispatch => {
+  return {
+    clearSessionErrors: () => dispatch(clearSessionErrors())
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));
