@@ -43,6 +43,7 @@
   },
   "scripts": {
     "webpack": "webpack --mode=development --watch",
+    "build-frontend": "webpack",
     "start": "node server.js",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
     "server": "nodemon server.js",
