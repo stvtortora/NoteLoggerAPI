@@ -13,8 +13,15 @@
    bottom: 0;
    right: 0;
    left: 0;
-   background: rgba(0, 0, 0, 0.1);
    z-index: 10;
+ }
+
+ .modal-background-cover {
+   height: 100%;
+   width: 100%;
+   opacity: .5;
+  position:fixed;
+  background-color: black;
  }
 
  .modal-child {
@@ -22,6 +29,9 @@
    top: 50%;
    left: 50%;
    transform: translate(-50%, -50%);
+   background: white;
+   border-radius: 10px;
+   box-shadow: 0 1px 1px 1px rgba(16,126,244,1);
  }
 
  .document-handler {
@@ -30,9 +40,6 @@
    padding: 10px;
    margin: 10px;
    border: none;
-   border-radius: 10px;
-   box-shadow: 0 1px 1px 1px rgba(16,126,244,1);
-   background: linear-gradient(#107ef4, #00d0ff);
    display: flex;
    flex-direction: column;
    align-items: center;
@@ -65,18 +72,21 @@
  }
 
  .document-handler-button {
-   background: radial-gradient(#1b273400, #0066ff);
    width: 25%;
    height: 13%;
    padding: 5px;
    border-radius: 10px;
-   font-size: 23px;
+   font-size: 18px;
    text-align: center;
+   color: white;
+   text-transform: uppercase;
+   font-weight: 600;
+   background: #107ef4;
  }
 
  .document-handler-button:hover {
   cursor: pointer;
-  background: linear-gradient(#d4dee9, #ffffff);
+  background: #5ba4f3;
  }
 
 header {
@@ -100,7 +110,7 @@ header {
  .menu-display {
    width: 35px;
    height: 5px;;
-   background-color: white;
+   background-color: #107ef4;
    margin: 6px 0;
  }
 
@@ -118,6 +128,8 @@ header {
    right: -48px;
    background-color: white;
    padding: 5px 15px 5px 15px;
+   border: 1px solid #107ef4;
+   border-radius: 10px;
  }
 
  .menu-option:hover {
@@ -149,7 +161,6 @@ header {
   transform: translate(-50%, -50%);
   border-radius: 10px;
   box-shadow: 0 1px 1px 1px rgba(16,126,244,1);
-  background: radial-gradient(#107ef4, #00d0ff);
   padding: 25px;
 }
 
@@ -159,7 +170,7 @@ header {
 
  .toggleLogin:hover {
    cursor: pointer;
-   color: white;
+   color: #5ba4f3;
  }
 
 .login > div {
@@ -168,7 +179,7 @@ header {
 
 .session-form {
   display: block;
-  font-family: "Comic Sans MS";
+  font-family: Inter UI,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,sans-serif ;
 }
 
 .form-field > input {
@@ -184,7 +195,6 @@ header {
 .session-form > button {
   color: white;
   border: 1px solid #107ef4;
-  background-color: #107ef4;
   padding: 7px;
   border-radius: 4px;
   font-size: 16px;
@@ -195,7 +205,6 @@ header {
 
 .session-form > button:hover {
   cursor: pointer;
-  background-color: #9bb3c6;
   color: black;
 }
 
@@ -216,9 +225,11 @@ header {
   width: 200px;
   height: 30px;
   margin: 10px 0px;
+  padding: 10px;
   border: none;
   font-size: 16px;
   outline: none;
+  background-color: #d8e1e6;
 }
 
 .search > button {
@@ -235,8 +246,7 @@ header {
 
 .search > button:hover {
   cursor: pointer;
-  background-color: #9bb3c6;
-  color: black;
+  background-color: #5ba4f3;
 }
 
 .feed {
@@ -260,11 +270,9 @@ header {
   justify-content: space-between;
   padding: 10px;
   margin: 10px;
-  border: none;
+  border: 1px solid #107ef4;
   border-radius: 10px;
-  box-shadow: 0 1px 1px 1px rgba(16,126,244,1);
   overflow: hidden;
-  background: radial-gradient(#107ef4, #00d0ff);
 }
 
 .post > img {
@@ -285,7 +293,7 @@ header {
 
 .post > div > h2:hover {
   cursor: pointer;
-  color: white;
+  color: #107ef4;
 }
 
 .post > div > p {
@@ -304,12 +312,13 @@ header {
   outline: none;
   width: 60px;
   text-align: center;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 .save-button:hover {
   cursor: pointer;
-  background-color: #9bb3c6;
-  color: black;
+  background-color: #5ba4f3;
 }
 
 .author-name {
@@ -350,9 +359,7 @@ i:hover {
   border-radius: 10px;
   padding: 25px;
   margin-bottom: 20px;
-  box-shadow: 0 1px 1px 1px rgba(16,126,244,1);
   overflow: hidden;
-  background: linear-gradient(#107ef4, #00d0ff);
 }
 
 .memo-display {

@@ -27,13 +27,14 @@ class FullPost extends React.Component {
     }
   }
 
-  formatComments (comments){
+  formatComments (comments, key=0){
     return comments.data.children.map(comment => {
+      key++;
       let replies;
       if (comment.data.replies && comment.data.replies !== '') {
-        replies = this.formatComments(comment.data.replies);
+        replies = this.formatComments(comment.data.replies, key);
       }
-      return <Comment author={comment.data.author} body={comment.data.body} replies={replies} />
+      return <Comment key={key} author={comment.data.author} body={comment.data.body} replies={replies} />
     })
   }
 

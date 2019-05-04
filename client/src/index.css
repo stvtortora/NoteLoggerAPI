@@ -9,9 +9,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
-  /* background-color: #cdc8c833; */
-  background: radial-gradient(#107ef4, #00d0ff);
+  font-family: Inter UI,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,sans-serif;
   height: 100%;
   position: relative;
   color: bla;

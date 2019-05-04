@@ -1408,6 +1408,7 @@ var Modal = function Modal(_ref) {
   return _react2.default.createElement(
     'div',
     { className: 'modal-background', onClick: closeModal },
+    _react2.default.createElement('div', { className: 'modal-background-cover' }),
     _react2.default.createElement(
       'div',
       { className: 'modal-child', onClick: function onClick(e) {
@@ -1675,12 +1676,15 @@ var FullPost = function (_React$Component) {
     value: function formatComments(comments) {
       var _this3 = this;
 
+      var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
       return comments.data.children.map(function (comment) {
+        key++;
         var replies = void 0;
         if (comment.data.replies && comment.data.replies !== '') {
-          replies = _this3.formatComments(comment.data.replies);
+          replies = _this3.formatComments(comment.data.replies, key);
         }
-        return _react2.default.createElement(_comment2.default, { author: comment.data.author, body: comment.data.body, replies: replies });
+        return _react2.default.createElement(_comment2.default, { key: key, author: comment.data.author, body: comment.data.body, replies: replies });
       });
     }
   }, {
