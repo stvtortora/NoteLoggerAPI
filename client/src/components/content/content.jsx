@@ -16,6 +16,13 @@ export class Content extends Component {
       errorMessage: '',
       subRedditTitle: ''
     }
+    this.onInputChange = this.onInputChange.bind(this)
+    this.filterResults = this.filterResults.bind(this)
+    this.handleKeyPress = this.handleKeyPress.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.parseInput = this.parseInput.bind(this)
+    this.retrieveData = this.retrieveData.bind(this)
+    this.redirectToLogin = this.redirectToLogin.bind(this)
   }
 
   componentDidMount () {
@@ -34,13 +41,13 @@ export class Content extends Component {
     }
   }
 
-  onInputChange = (event) => {
+  onInputChange (event) {
     this.setState({
       input: event.target.value
     });
   }
 
-  filterResults = (results) => {
+  filterResults (results) {
     return results.data.children.map(post => {
       return Object.keys(post.data).reduce((postData, key) => {
         if(["author", "title", "thumbnail", "selftext", "permalink"].includes(key)){
@@ -52,13 +59,13 @@ export class Content extends Component {
     });
   }
 
-  handleKeyPress = (e) => {
+  handleKeyPress (e) {
     if (e.key === 'Enter') {
       this.handleSubmit()
     }
   }
 
-  handleSubmit = () => {
+  handleSubmit () {
     this.retrieveData(this.state.input).done(res => {
       this.setState({
         subRedditTitle: this.state.input,
@@ -73,17 +80,17 @@ export class Content extends Component {
     });
   }
 
-  parseInput = (input) => {
+  parseInput (input) {
     return input.split(' ').join('');
   }
 
-  retrieveData = (input) => {
+  retrieveData (input) {
     return $.getJSON(`https://www.reddit.com/r/${this.parseInput(input)}.json`, res => {
       return res;
     });
   }
 
-  redirectToLogin = () => {
+  redirectToLogin () {
     this.props.history.push('/');
   }
 

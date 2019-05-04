@@ -11,6 +11,7 @@ class SessionForm extends React.Component {
       };
       this.handleClick = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleKeyPress = this.handleKeyPress.bind(this)
   }
 
   handleChange (field) {
@@ -19,7 +20,7 @@ class SessionForm extends React.Component {
     });
   }
 
-  handleKeyPress = (e) => {
+  handleKeyPress (e) {
     if (e.key === 'Enter') {
       this.handleSubmit(e)
     }

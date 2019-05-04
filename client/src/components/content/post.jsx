@@ -6,12 +6,17 @@ import { setUpModal } from './../../actions/modal_actions';
 import { updateCurrentPost } from './../../actions/posts_actions';
 
 export class Post extends React.Component {
-  handleViewPost = () => {
+  constructor (props) {
+    super(props)
+    this.handleViewPost = this.handleViewPost.bind(this)
+    this.parseTitle = this.parseTitle.bind(this)
+  }
+  handleViewPost () {
     this.props.updateCurrentPost(this.props.data)
     this.props.history.push(`/post/${this.parseTitle(this.props.data.title)}`)
   }
 
-  parseTitle = (title) => {
+  parseTitle (title) {
     return title.split(' ').join('-').split('').filter(char => {
       return !("!#&*',.?%$".split('').includes(char))
     }).join('').toLowerCase()

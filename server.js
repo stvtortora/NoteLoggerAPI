@@ -3,7 +3,6 @@ const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const cors = require('cors');
 const {ObjectID} = require('mongodb');
 
 var { mongoose } = require('./db/mongoose');
@@ -13,20 +12,13 @@ const { User } = require('./models/user');
 const { authenticate } = require('./middleware/authenticate');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
-app.use(bodyParser.json());
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, X-Auth, Accept");
-  res.header("Access-Control-Expose-Headers", "x-auth")
-  next();
-});
+app.use(bodyParser.json({ type: '*/*' }))
 
-app.get('/', (req, res) => {
-  res.send({"message": "it works"});
-})
+// app.get('/', (req, res) => {
+//   res.send({"message": "it works"});
+// })
 
 app.post('/api/subreddits', authenticate, (req, res) => {
   const subreddit = new SubReddit({

@@ -8,6 +8,7 @@ class Login extends React.Component {
   constructor() {
     super();
     this.state = {signup: true}
+    this.toggleState = this.toggleState.bind(this)
   }
 
   componentWillMount () {
@@ -16,7 +17,7 @@ class Login extends React.Component {
     }
   }
 
-  toggleState = () => {
+  toggleState() {
     this.setState({
       signup: !this.state.signup
     });

@@ -5,13 +5,18 @@ import { logout } from './../../actions/session_actions';
 import { showFavorites } from './../../actions/ui_actions';
 
 class Menu extends React.Component {
-  handleLogout = () => {
+  constructor (props) {
+    super(props)
+    this.handleLogout = this.handleLogout.bind(this)
+    this.handleShowFavorites = this.handleShowFavorites.bind(this)
+  }
+  handleLogout () {
     this.props.logout(this.props.user).then(() => {
       this.props.history.push('/');
     });
   }
 
-  handleShowFavorites = () => {
+  handleShowFavorites () {
     this.props.showFavorites()
     if (this.props.history[this.props.history.length - 1] !== '/search') {
       this.props.history.push('/search');

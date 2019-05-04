@@ -6,15 +6,17 @@ class DocumentHandler extends React.Component {
     this.state = {
       memo: this.props.data.memo
     }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleChange = (e) => {
+  handleChange (e) {
     this.setState({
       memo: e.target.value
     })
   }
 
-  handleSubmit = () => {
+  handleSubmit () {
     if (this.props.type === 'Save' || this.props.type === 'Update') {
       this.props.data.memo = this.state.memo;
     }

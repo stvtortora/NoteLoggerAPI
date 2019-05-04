@@ -10,6 +10,9 @@ class FullPost extends React.Component {
     this.state = {
       comments: null
     };
+    this.formatComments = this.formatComments.bind(this)
+    this.retrieveData = this.retrieveData.bind(this)
+    this.redirectToLogin = this.redirectToLogin.bind(this)
   }
 
   componentDidMount () {
@@ -24,7 +27,7 @@ class FullPost extends React.Component {
     }
   }
 
-  formatComments = (comments) => {
+  formatComments (comments){
     return comments.data.children.map(comment => {
       let replies;
       if (comment.data.replies && comment.data.replies !== '') {
@@ -34,13 +37,13 @@ class FullPost extends React.Component {
     })
   }
 
-  retrieveData = () => {
+  retrieveData () {
     return $.getJSON(`https://www.reddit.com${this.props.data.permalink}.json`, res => {
       return res;
     });
   }
 
-  redirectToLogin = () => {
+  redirectToLogin () {
     this.props.history.push('/');
   }
 
