@@ -1902,17 +1902,21 @@ var Login = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var form = this.state.signup ? _react2.default.createElement(_signup_form_container2.default, { formName: 'Sign up' }) : _react2.default.createElement(_login_form_container2.default, { formName: 'Login' });
+      var form = this.state.signup ? _react2.default.createElement(_signup_form_container2.default, { formName: 'Sign Up' }) : _react2.default.createElement(_login_form_container2.default, { formName: 'Login' });
       var message = this.state.signup ? 'Already a member? Login.' : 'Not a member? Signup.';
 
       return _react2.default.createElement(
         'div',
-        { className: 'login' },
-        form,
+        { className: 'login-background' },
         _react2.default.createElement(
           'div',
-          { className: 'toggleLogin', onClick: this.toggleState },
-          message
+          { className: 'login' },
+          form,
+          _react2.default.createElement(
+            'div',
+            { className: 'toggleLogin', onClick: this.toggleState },
+            message
+          )
         )
       );
     }

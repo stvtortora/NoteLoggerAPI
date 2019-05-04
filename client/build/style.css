@@ -22,6 +22,7 @@ body {
  display: block;
  position: relative;
  padding-bottom: 100px;
+ background-color: #f5f5ff;
 }
 
 .modal-background {
@@ -169,6 +170,7 @@ header {
   font-size: 12px;
 }
 
+
 .login {
   display: block;
   text-align: center;
@@ -177,8 +179,9 @@ header {
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 10px;
-  box-shadow: 0 1px 1px 1px rgba(16,126,244,1);
+  border: 1px solid #107ef4;
   padding: 25px;
+  background: #f5f5ff;
 }
 
 .toggleLogin {
@@ -197,6 +200,10 @@ header {
 .session-form {
   display: block;
   font-family: Inter UI,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,sans-serif ;
+}
+
+.session-form > h1 {
+  color: #107ef4;
 }
 
 .form-field > input {
