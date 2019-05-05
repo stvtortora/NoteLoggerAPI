@@ -1,6 +1,6 @@
 # SubRedditBrowser
 
- SubRedditBrowser allows users to browse posts on reddit by subreddit, save posts, and record private memos about them. It's built with a MERN stack (MongoDB, Express, React+Redux, Node). Check it out at https://subreddit-browser.herokuapp.com/#/.
+ SubRedditBrowser allows users to browse posts on reddit by subreddit, save posts, and record private memos about them. It's built with a MERN stack (MongoDB, Express, React+Redux, Node). Check it out at https://subredditbrowser.herokuapp.com/#/
 
 ## Retrieving and parsing JSON from Reddit
 
